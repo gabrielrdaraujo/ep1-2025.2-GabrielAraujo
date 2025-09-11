@@ -1,0 +1,16 @@
+public class PacienteEspecial extends Paciente {
+    PlanoSaude plano;
+
+    public PacienteEspecial(String nome, String cpf, int idade, PlanoSaude plano) {
+        super(nome, cpf, idade);
+        this.plano = plano;
+    }
+
+    public PlanoSaude getPlano() {
+        return plano;
+    }
+
+    public void setPlano(PlanoSaude plano) {
+        this.plano = plano;
+    }  
+}
