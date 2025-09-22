@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MedicoRepoMem {
-    private List<Medico> medicos = new ArrayList<>();
+    private final List<Medico> medicos = new ArrayList<>();
 
     public void add(Medico m) { medicos.add(m); }
 
