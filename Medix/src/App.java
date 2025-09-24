@@ -1,32 +1,18 @@
-import infra.IdSequence;
-import model.medicos.Medico;
-import model.medicos.MedicoRepoMem;
-import model.pacientes.Paciente;
+import controller.PacienteController;
 import model.pacientes.PacienteRepoMem;
+import view.MenuPrincipal;
 
 public class App {
     public static void main(String[] args) {
-        // Repositórios em memória
+        // Repositório em memória (por enquanto, sem CSV)
         PacienteRepoMem pacienteRepo = new PacienteRepoMem();
-        MedicoRepoMem medicoRepo = new MedicoRepoMem();
 
-        // Cadastrar pacientes
-        Paciente p1 = new Paciente(IdSequence.nextId("P"), "João Silva", "12345678901", 30);
-        Paciente p2 = new Paciente(IdSequence.nextId("P"), "Maria Souza", "98765432100", 45);
-        pacienteRepo.add(p1);
-        pacienteRepo.add(p2);
+        // Controller
+        PacienteController pacienteController = new PacienteController(pacienteRepo);
 
-        // Cadastrar médicos
-        Medico m1 = new Medico(IdSequence.nextId("M"), "Dra. Ana", "CRM1234", "Cardiologia");
-        Medico m2 = new Medico(IdSequence.nextId("M"), "Dr. Pedro", "CRM5678", "Ortopedia");
-        medicoRepo.add(m1);
-        medicoRepo.add(m2);
+        // Menu principal
+        new MenuPrincipal(pacienteController).mostrar();
 
-        // Listagens
-        System.out.println("=== Pacientes ===");
-        for (Paciente p : pacienteRepo.findAll()) System.out.println(p);
-
-        System.out.println("=== Médicos ===");
-        for (Medico m : medicoRepo.findAll()) System.out.println(m);
+        System.out.println("Encerrando o Medix. Até mais!");
     }
 }
