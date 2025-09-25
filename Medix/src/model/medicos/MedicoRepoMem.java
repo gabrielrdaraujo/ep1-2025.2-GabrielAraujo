@@ -6,13 +6,19 @@ import java.util.List;
 public class MedicoRepoMem {
     private final List<Medico> medicos = new ArrayList<>();
 
-    public void add(Medico m) { medicos.add(m); }
+    public void add(Medico m) {
+        medicos.add(m);
+    }
 
-    public List<Medico> findAll() { return medicos; }
+    public List<Medico> findAll() {
+        return medicos;
+    }
 
     public Medico findById(String id) {
         for (Medico m : medicos) {
-            if (m.getId().equals(id)) return m;
+            if (m.getId().equals(id)) {
+                return m;
+            }
         }
         return null;
     }
