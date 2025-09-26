@@ -1,11 +1,9 @@
 package view;
 
 import controller.PacienteController;
-import model.pacientes.Paciente;
-
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import model.pacientes.Paciente;
 
 public class MenuPacientes {
     private final Scanner in;
