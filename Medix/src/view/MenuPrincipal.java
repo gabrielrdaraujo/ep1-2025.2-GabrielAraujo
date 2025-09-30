@@ -1,5 +1,6 @@
 package view;
 
+import controller.ConsultaController;
 import controller.MedicoController;
 import controller.PacienteController;
 import java.util.Scanner;
@@ -8,10 +9,14 @@ public class MenuPrincipal {
     private final Scanner in = new Scanner(System.in);
     private final PacienteController pacienteController;
     private final MedicoController medicoController;
+    private final ConsultaController consultaController;
 
-    public MenuPrincipal(PacienteController pacienteController, MedicoController medicoController) {
+    public MenuPrincipal(PacienteController pacienteController,
+                         MedicoController medicoController,
+                         ConsultaController consultaController) {
         this.pacienteController = pacienteController;
         this.medicoController = medicoController;
+        this.consultaController = consultaController;
     }
 
     public void mostrar() {
@@ -20,7 +25,7 @@ public class MenuPrincipal {
             System.out.println("=== MEDIX ===");
             System.out.println("1) Pacientes");
             System.out.println("2) Médicos");
-            System.out.println("3) Consultas (em construção)");
+            System.out.println("3) Consultas");
             System.out.println("4) Internações (em construção)");
             System.out.println("5) Planos (em construção)");
             System.out.println("6) Relatórios (em construção)");
@@ -32,10 +37,10 @@ public class MenuPrincipal {
             switch (op) {
                 case 1 -> new MenuPacientes(in, pacienteController).mostrar();
                 case 2 -> new MenuMedicos(in, medicoController).mostrar();
+                case 3 -> new MenuConsultas(in, consultaController).mostrar();
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida ou ainda não implementada.");
             }
-
             System.out.println();
         } while (op != 0);
     }

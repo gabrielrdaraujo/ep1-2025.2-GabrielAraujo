@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConsultaRepoMem {
-    private final List<Consulta> consultas = new ArrayList<>();
+    private List<Consulta> consultas = new ArrayList<>();
 
     public void add(Consulta c) {
         consultas.add(c);
@@ -29,8 +29,7 @@ public class ConsultaRepoMem {
                     && c.getDataHora().equals(dataHora)) {
                 return true;
             }
-        }
-        return false;
+        } return false;
     }
 
     // Conflito mesmo local no mesmo horário 
@@ -41,7 +40,6 @@ public class ConsultaRepoMem {
                     && c.getDataHora().equals(dataHora)) {
                 return true;
             }
-        }
-        return false;
+        } return false;
     }
 }

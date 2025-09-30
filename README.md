@@ -10,10 +10,10 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
 
 ## Dados do Aluno
 
-- **Nome completo:** [Preencher aqui]
-- **Matrícula:** [Preencher aqui]
-- **Curso:** [Preencher aqui]
-- **Turma:** [Preencher aqui]
+- **Nome completo:** [Gabriel Rodrigues de Araujo]
+- **Matrícula:** [251009210]
+- **Curso:** [Engenharias]
+- **Turma:** [02]
 
 ---
 
@@ -29,7 +29,7 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
    [Descrever aqui as principais pastas do projeto]
 
 3. **Versão do JAVA utilizada:**  
-   [Descrever aqui como versão do JAVA utilizada no projeto. Sugestão: `java 21`]
+   [`java 17`]
 
 ---
 
