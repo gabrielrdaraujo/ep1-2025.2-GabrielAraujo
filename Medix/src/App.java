@@ -1,13 +1,11 @@
-import model.pacientes.PacienteRepoMem;
-import model.medicos.MedicoRepoMem;
-import model.consultas.ConsultaRepoMem;
-import model.internacoes.InternacaoRepoMem;
-
-import controller.PacienteController;
-import controller.MedicoController;
 import controller.ConsultaController;
 import controller.InternacaoController;
-
+import controller.MedicoController;
+import controller.PacienteController;
+import model.consultas.ConsultaRepoMem;
+import model.internacoes.InternacaoRepoMem;
+import model.medicos.MedicoRepoMem;
+import model.pacientes.PacienteRepoMem;
 import view.MenuPrincipal;
 
 public class App {
