@@ -1,6 +1,7 @@
 package view;
 
 import controller.ConsultaController;
+import controller.InternacaoController;
 import controller.MedicoController;
 import controller.PacienteController;
 import java.util.Scanner;
@@ -10,13 +11,16 @@ public class MenuPrincipal {
     private final PacienteController pacienteController;
     private final MedicoController medicoController;
     private final ConsultaController consultaController;
+    private final InternacaoController internacaoController;
 
     public MenuPrincipal(PacienteController pacienteController,
                          MedicoController medicoController,
-                         ConsultaController consultaController) {
+                         ConsultaController consultaController,
+                         InternacaoController internacaoController) {
         this.pacienteController = pacienteController;
         this.medicoController = medicoController;
         this.consultaController = consultaController;
+        this.internacaoController = internacaoController;
     }
 
     public void mostrar() {
@@ -26,7 +30,7 @@ public class MenuPrincipal {
             System.out.println("1) Pacientes");
             System.out.println("2) Médicos");
             System.out.println("3) Consultas");
-            System.out.println("4) Internações (em construção)");
+            System.out.println("4) Internações");
             System.out.println("5) Planos (em construção)");
             System.out.println("6) Relatórios (em construção)");
             System.out.println("0) Sair");
@@ -38,6 +42,7 @@ public class MenuPrincipal {
                 case 1 -> new MenuPacientes(in, pacienteController).mostrar();
                 case 2 -> new MenuMedicos(in, medicoController).mostrar();
                 case 3 -> new MenuConsultas(in, consultaController).mostrar();
+                case 4 -> new MenuInternacoes(in, internacaoController).mostrar();
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida ou ainda não implementada.");
             }
