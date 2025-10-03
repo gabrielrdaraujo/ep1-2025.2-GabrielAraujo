@@ -8,7 +8,10 @@ import java.util.List;
 
 public class PlanoSaudeController {
     private final PlanoSaudeRepo repo;
-    public PlanoSaudeController(PlanoSaudeRepo repo) { this.repo = repo; }
+
+    public PlanoSaudeController(PlanoSaudeRepo repo) { 
+        this.repo = repo; 
+    }
 
     public PlanoSaude cadastrar(String nome, double descConsulta, double descInternacao) {
         if (nome == null || nome.isBlank()) {
@@ -29,6 +32,11 @@ public class PlanoSaudeController {
         return p;
     }
 
-    public List<PlanoSaude> listar() { return repo.findAll(); }
-    public PlanoSaude buscar(String id) { return repo.findById(id); }
+    public List<PlanoSaude> listar() { 
+        return repo.findAll(); 
+    }
+    
+    public PlanoSaude buscar(String id) { 
+        return repo.findById(id); 
+    }
 }
