@@ -5,12 +5,18 @@ public class Medico {
     private String nome;
     private String crm;
     private String especialidade;
+    private double valorConsulta;
 
     public Medico(String id, String nome, String crm, String especialidade) {
+        this(id, nome, crm, especialidade, 0.0);
+    }
+
+    public Medico(String id, String nome, String crm, String especialidade, double valorConsulta) {
         this.id = id;
         this.nome = nome;
         this.crm = crm;
         this.especialidade = especialidade;
+        this.valorConsulta = valorConsulta;
     }
 
     public String getId() {
@@ -44,7 +50,14 @@ public class Medico {
     public void setEspecialidade(String especialidade) {
         this.especialidade = especialidade;
     }
-    
+
+    public double getValorConsulta() {
+        return valorConsulta;
+    }
+
+    public void setValorConsulta(double valorConsulta) {
+        this.valorConsulta = valorConsulta;
+    }
 
     @Override
     public String toString() {
@@ -53,6 +66,7 @@ public class Medico {
                 ", nome='" + nome + '\'' +
                 ", crm='" + crm + '\'' +
                 ", especialidade='" + especialidade + '\'' +
+                " , valorConsulta=" + valorConsulta +
                 '}';
     }
 }

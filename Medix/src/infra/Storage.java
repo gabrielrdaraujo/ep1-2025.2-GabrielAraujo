@@ -6,4 +6,5 @@ public class Storage {
     public static final String MEDICOS     = DATA_FOLDER + "medicos.csv";
     public static final String CONSULTAS   = DATA_FOLDER + "consultas.csv";
     public static final String INTERNACOES = DATA_FOLDER + "internacoes.csv";
+    public static final String PLANOS      = DATA_FOLDER + "planos.csv";
 }

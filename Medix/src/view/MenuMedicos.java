@@ -1,10 +1,9 @@
 package view;
 
 import controller.MedicoController;
-import model.medicos.Medico;
-
 import java.util.List;
 import java.util.Scanner;
+import model.medicos.Medico;
 
 public class MenuMedicos {
     private final Scanner in;
@@ -53,7 +52,10 @@ public class MenuMedicos {
         System.out.print("Especialidade: ");
         String especialidade = in.nextLine();
 
-        Medico m = controller.cadastrar(nome, crm, especialidade);
+        System.out.print("Valor da consulta: ");
+        double valorConsulta = Double.parseDouble(in.nextLine());
+
+        Medico m = controller.cadastrar(nome, crm, especialidade, valorConsulta);
         System.out.println("Médico cadastrado: " + m);
     }
 
@@ -63,10 +65,10 @@ public class MenuMedicos {
             System.out.println("(nenhum médico cadastrado)");
             return;
         }
-        System.out.println("ID | NOME | CRM | ESPECIALIDADE");
+        System.out.println("ID | NOME | CRM | ESPECIALIDADE | VALOR CONSULTA");
         for (Medico m : lista) {
-            System.out.printf("%s | %s | %s | %s%n",
-                    m.getId(), m.getNome(), m.getCrm(), m.getEspecialidade());
+            System.out.printf("%s | %s | %s | %s%n | %.2f%n",
+                    m.getId(), m.getNome(), m.getCrm(), m.getEspecialidade(), m.getValorConsulta());
         }
     }
 }
