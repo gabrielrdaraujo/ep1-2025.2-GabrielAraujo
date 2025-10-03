@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PacienteRepo {
-    private List<Paciente> pacientes = new ArrayList<>();
+    private final List<Paciente> pacientes = new ArrayList<>();
 
     public PacienteRepo() {
         carregar();
