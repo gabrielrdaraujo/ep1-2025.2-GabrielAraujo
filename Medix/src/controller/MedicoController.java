@@ -12,20 +12,28 @@ public class MedicoController {
         this.repo = repo;
     }
 
-    public Medico cadastrar(String nome, String crm, String especialidade) {
+    public Medico cadastrar(String nome, String crm, String especialidade, double valorConsulta) {
         if (nome == null || nome.isBlank()) throw new IllegalArgumentException("Nome não pode ser vazio.");
         if (crm == null || crm.isBlank()) throw new IllegalArgumentException("CRM não pode ser vazio.");
         if (especialidade == null || especialidade.isBlank()) throw new IllegalArgumentException("Especialidade não pode ser vazia.");
+        if (valorConsulta < 0) throw new IllegalArgumentException("Valor da consulta não pode ser negativo.");
 
         String id = IdSequence.nextId("M");
-        Medico m = new Medico(id, nome.trim(), crm.trim(), especialidade.trim());
+
+        Medico m = new Medico(id, nome.trim(), crm.trim(), especialidade.trim(), valorConsulta);
         repo.add(m);
         return m;
     }
 
-    public List<Medico> listarTodos() { return repo.findAll(); }
+    public List<Medico> listarTodos() { 
+        return repo.findAll(); 
+    }
 
-    public boolean removerPorId(String id) { return repo.remove(id); }
+    public boolean removerPorId(String id) { 
+        return repo.remove(id); 
+    }
 
-    public Medico buscarPorId(String id) { return repo.findById(id); }
+    public Medico buscarPorId(String id) { 
+        return repo.findById(id); 
+    }
 }

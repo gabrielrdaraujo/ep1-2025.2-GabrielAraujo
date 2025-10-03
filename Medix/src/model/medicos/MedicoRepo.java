@@ -27,9 +27,10 @@ public class MedicoRepo {
 
     public Medico findById(String id) {
         for (Medico m : medicos) {
-            if (m.getId().equals(id)) return m;
-        }
-        return null;
+            if (m.getId().equals(id)) {
+                return m;
+            }
+        } return null;
     }
 
     public boolean remove(String id) {
@@ -45,7 +46,8 @@ public class MedicoRepo {
                 m.getId(),
                 m.getNome(),
                 m.getCrm(),
-                m.getEspecialidade()
+                m.getEspecialidade(),
+                String.valueOf(m.getValorConsulta())
             });
         }
         CSV.write(Storage.MEDICOS, linhas);
@@ -55,9 +57,19 @@ public class MedicoRepo {
         List<String[]> linhas = CSV.read(Storage.MEDICOS);
         medicos.clear();
         for (String[] c : linhas) {
-            if (c.length >= 4) {
-                medicos.add(new Medico(c[0], c[1], c[2], c[3]));
+            if (c.length >= 5) {
+                medicos.add(new Medico(c[0], c[1], c[2], c[3], parseDoubleSafe(c[4])));
+            } else if (c.length == 4) {
+                medicos.add(new Medico(c[0], c[1], c[2], c[3], 0.0));
             }
+        }
+    }
+
+    public static double parseDoubleSafe(String s) {
+        try {
+            return Double.parseDouble(s);
+        } catch (NumberFormatException e) {
+            return 0.0;
         }
     }
 
