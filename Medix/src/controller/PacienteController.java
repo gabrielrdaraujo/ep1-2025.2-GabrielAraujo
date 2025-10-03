@@ -1,11 +1,10 @@
 package controller;
 
 import infra.IdSequence;
-import model.pacientes.Paciente;
-import model.pacientes.PacienteRepo;     
-import model.pacientes.PacienteRepoMem; 
-
 import java.util.List;
+import model.pacientes.Paciente;
+import model.pacientes.PacienteRepo;
+import model.pacientes.PacienteRepoMem;
 
 public class PacienteController {
 
@@ -39,8 +38,14 @@ public class PacienteController {
     }
 
     public boolean removerPorId(String id) {
-        return (repoMem != null) ? repoMem.remove(id) : repoCsv.remove(id);
+        if (repoMem != null) {
+            repoMem.remove(id);
+            return repoMem.findById(id) == null;
+        } else {
+            return repoCsv.remove(id);
+        }
     }
+
 
     public Paciente buscarPorId(String id) {
         return (repoMem != null) ? repoMem.findById(id) : repoCsv.findById(id);

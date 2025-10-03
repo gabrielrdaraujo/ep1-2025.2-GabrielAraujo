@@ -2,7 +2,6 @@ package model.pacientes;
 
 import infra.CSV;
 import infra.Storage;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class PacienteRepo {
     public boolean remove(String id) {
         boolean removed = pacientes.removeIf(p -> p.getId().equals(id));
         if (removed) salvar();
-        return removed;
+        return removed; 
     }
 
     private void salvar() {
