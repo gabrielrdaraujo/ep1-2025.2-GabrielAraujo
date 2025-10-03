@@ -4,19 +4,12 @@ import infra.IdSequence;
 import java.util.List;
 import model.medicos.Medico;
 import model.medicos.MedicoRepo;
-import model.medicos.MedicoRepoMem;
 
 public class MedicoController {
-    private final MedicoRepoMem repoMem;
-    private final MedicoRepo    repoCsv;
+    private final MedicoRepo repo;
 
-    public MedicoController(MedicoRepoMem repoMem) {
-        this.repoMem = repoMem;
-        this.repoCsv = null;
-    }
-    public MedicoController(MedicoRepo repoCsv) {
-        this.repoCsv = repoCsv;
-        this.repoMem = null;
+    public MedicoController(MedicoRepo repo) {
+        this.repo = repo;
     }
 
     public Medico cadastrar(String nome, String crm, String especialidade) {
@@ -26,19 +19,13 @@ public class MedicoController {
 
         String id = IdSequence.nextId("M");
         Medico m = new Medico(id, nome.trim(), crm.trim(), especialidade.trim());
-        if (repoMem != null) repoMem.add(m); else repoCsv.add(m);
+        repo.add(m);
         return m;
     }
 
-    public List<Medico> listarTodos() {
-        return (repoMem != null) ? repoMem.findAll() : repoCsv.findAll();
-    }
+    public List<Medico> listarTodos() { return repo.findAll(); }
 
-    public boolean removerPorId(String id) {
-        return (repoMem != null) ? repoMem.remove(id) : repoCsv.remove(id);
-    }
+    public boolean removerPorId(String id) { return repo.remove(id); }
 
-    public Medico buscarPorId(String id) {
-        return (repoMem != null) ? repoMem.findById(id) : repoCsv.findById(id);
-    }
+    public Medico buscarPorId(String id) { return repo.findById(id); }
 }

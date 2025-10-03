@@ -3,35 +3,19 @@ package controller;
 import infra.IdSequence;
 import java.util.List;
 import model.internacoes.Internacao;
-import model.internacoes.InternacaoRepoMem;
-import model.medicos.MedicoRepoMem;
-import model.pacientes.Paciente;
+import model.internacoes.InternacaoRepo;
+import model.medicos.MedicoRepo;
 import model.pacientes.PacienteRepo;
-import model.pacientes.PacienteRepoMem;
 
 public class InternacaoController {
-    private final InternacaoRepoMem internacaoRepo;
-    private final MedicoRepoMem     medicoRepo;
+    private final InternacaoRepo internacaoRepo;
+    private final PacienteRepo pacienteRepo;
+    private final MedicoRepo   medicoRepo;
 
-    private final PacienteRepoMem pacienteRepoMem;
-    private final PacienteRepo    pacienteRepoCsv;
-
-    public InternacaoController(InternacaoRepoMem internacaoRepo, PacienteRepoMem pacienteRepoMem, MedicoRepoMem medicoRepo) {
+    public InternacaoController(InternacaoRepo internacaoRepo, PacienteRepo pacienteRepo, MedicoRepo medicoRepo) {
         this.internacaoRepo = internacaoRepo;
-        this.pacienteRepoMem = pacienteRepoMem;
-        this.pacienteRepoCsv = null;
+        this.pacienteRepo = pacienteRepo;
         this.medicoRepo = medicoRepo;
-    }
-
-    public InternacaoController(InternacaoRepoMem internacaoRepo, PacienteRepo pacienteRepoCsv, MedicoRepoMem medicoRepo) {
-        this.internacaoRepo = internacaoRepo;
-        this.pacienteRepoMem = null;
-        this.pacienteRepoCsv = pacienteRepoCsv;
-        this.medicoRepo = medicoRepo;
-    }
-
-    private Paciente getPaciente(String id) {
-        return (pacienteRepoMem != null) ? pacienteRepoMem.findById(id) : pacienteRepoCsv.findById(id);
     }
 
     public Internacao internar(String pacienteId, String medicoId, String quarto, String dataEntrada) {
@@ -40,7 +24,7 @@ public class InternacaoController {
         if (quarto     == null || quarto.isBlank())     throw new IllegalArgumentException("Quarto inválido.");
         if (dataEntrada== null || dataEntrada.isBlank())throw new IllegalArgumentException("Data de entrada inválida.");
 
-        if (getPaciente(pacienteId) == null)
+        if (pacienteRepo.findById(pacienteId) == null)
             throw new IllegalArgumentException("Paciente não encontrado: " + pacienteId);
         if (medicoRepo.findById(medicoId) == null)
             throw new IllegalArgumentException("Médico não encontrado: " + medicoId);
@@ -63,6 +47,7 @@ public class InternacaoController {
         if (!i.estaAtiva())     throw new IllegalStateException("Esta internação já possui alta.");
 
         i.setDataSaida(dataSaida.trim());
+        // opcional: internacaoRepo.salvar() se você quiser forçar persistência imediata
     }
 
     public List<Internacao> listarAtivas() { return internacaoRepo.listarAtivas(); }
