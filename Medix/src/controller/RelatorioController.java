@@ -1,20 +1,16 @@
 package controller;
 
-import model.consultas.Consulta;
-import model.consultas.ConsultaRepo;
-
-import model.medicos.Medico;
-import model.medicos.MedicoRepo;
-
-import model.pacientes.Paciente;
-import model.pacientes.PacienteRepo;
-
-import model.planos.PlanoSaude;
-import model.planos.PlanoSaudeRepo;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import model.consultas.Consulta;
+import model.consultas.ConsultaRepo;
+import model.medicos.Medico;
+import model.medicos.MedicoRepo;
+import model.pacientes.Paciente;
+import model.pacientes.PacienteRepo;
+import model.planos.PlanoSaude;
+import model.planos.PlanoSaudeRepo;
 
 public class RelatorioController {
     private final ConsultaRepo consultaRepo;
@@ -42,8 +38,8 @@ public class RelatorioController {
 
             Paciente pac = pacienteRepo.findById(c.getPacienteId());
             double fator = 1.0;
-            if (pac != null && pac.getPlanoId() != null) {
-                PlanoSaude pl = planoRepo.findById(pac.getPlanoId());
+            if (pac != null && pac.getPlanoSaudeId() != null) {
+                PlanoSaude pl = planoRepo.findById(pac.getPlanoSaudeId());
                 if (pl != null) fator = 1.0 - (pl.getDescontoConsulta() / 100.0);
             }
             total += preco * fator;

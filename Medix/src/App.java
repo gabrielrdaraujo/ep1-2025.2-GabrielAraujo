@@ -27,8 +27,14 @@ public class App {
         RelatorioController  relatorioController  = new RelatorioController(consultaRepo, pacienteRepo, medicoRepo, planoRepo);
 
         new MenuPrincipal(
-            pacienteController, medicoController, consultaController,
-            internacaoController 
+            pacienteController,
+            medicoController,
+            consultaController,
+            internacaoController,
+            planoController,        
+            relatorioController      
         ).mostrar();
+
+        System.out.println("Encerrando o Medix. Até mais!");
     }
 }

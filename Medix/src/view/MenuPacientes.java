@@ -7,73 +7,87 @@ import model.pacientes.Paciente;
 
 public class MenuPacientes {
     private final Scanner in;
-    private final PacienteController controller;
+    private final PacienteController ctrl;
 
-    public MenuPacientes(Scanner in, PacienteController controller) {
+    public MenuPacientes(Scanner in, PacienteController ctrl) {
         this.in = in;
-        this.controller = controller;
+        this.ctrl = ctrl;
     }
 
     public void mostrar() {
         int op;
         do {
             System.out.println("=== PACIENTES ===");
-            System.out.println("1) Cadastrar paciente");
-            System.out.println("2) Listar pacientes");
+            System.out.println("1) Cadastrar");
+            System.out.println("2) Listar");
+            System.out.println("3) Remover por ID");
             System.out.println("0) Voltar");
             System.out.print("Opção: ");
-            String line = in.nextLine().trim();
-            op = line.isEmpty() ? -1 : Character.getNumericValue(line.charAt(0));
+            String s = in.nextLine().trim();
+            op = s.isEmpty() ? -1 : Character.getNumericValue(s.charAt(0));
 
             try {
                 switch (op) {
-                    case 1 -> cadastrarPaciente();
-                    case 2 -> listarPacientes();
+                    case 1 -> cadastrar();
+                    case 2 -> listar();
+                    case 3 -> remover();
                     case 0 -> System.out.println("Voltando...");
                     default -> System.out.println("Opção inválida.");
                 }
-            } catch (IllegalArgumentException e) {
-                System.out.println("Erro: " + e.getMessage());
             } catch (Exception e) {
-                System.out.println("Erro inesperado: " + e.getMessage());
+                System.out.println("Erro: " + e.getMessage());
             }
-
             System.out.println();
         } while (op != 0);
     }
 
-    private void cadastrarPaciente() {
+    private void cadastrar() {
         System.out.print("Nome: ");
         String nome = in.nextLine();
 
-        System.out.print("CPF (apenas números): ");
+        System.out.print("CPF (somente números): ");
         String cpf = in.nextLine();
 
-        Integer idade = null;
-        while (idade == null) {
-            System.out.print("Idade: ");
-            String s = in.nextLine();
-            try {
-                idade = Integer.parseInt(s.trim());
-            } catch (NumberFormatException ex) {
-                System.out.println("Informe um número inteiro para a idade.");
-            }
+        System.out.print("Idade: ");
+        int idade = lerInt(in.nextLine());
+
+        System.out.print("Plano de saúde (ID) [Enter para nenhum]: ");
+        String planoId = in.nextLine().trim();
+        if (planoId.isEmpty()) planoId = null;
+
+        System.out.print("Paciente especial? (s/N): ");
+        String espStr = in.nextLine().trim().toLowerCase();
+        boolean especial = espStr.equals("s") || espStr.equals("sim");
+
+        if (especial) {
+            System.out.print("Observação do especial (ex.: prioridade/condição): ");
+            in.nextLine();
         }
 
-        Paciente p = controller.cadastrar(nome, cpf, idade);
+        Paciente p = ctrl.cadastrar(nome, cpf, idade, planoId, especial);
         System.out.println("Paciente cadastrado: " + p);
     }
 
-    private void listarPacientes() {
-        List<Paciente> lista = controller.listarTodos();
-        if (lista.isEmpty()) {
-            System.out.println("(nenhum paciente cadastrado)");
+    private void listar() {
+        List<Paciente> pacientes = ctrl.listarTodos();
+        if (pacientes.isEmpty()) {
+            System.out.println("Nenhum paciente cadastrado.");
             return;
         }
-        System.out.println("ID | NOME | CPF | IDADE");
-        for (Paciente p : lista) {
-            System.out.printf("%s | %s | %s | %d%n",
-                    p.getId(), p.getNome(), p.getCpf(), p.getIdade());
+        for (Paciente p : pacientes) System.out.println(p);
+    }
+
+    private void remover() {
+        System.out.print("ID do paciente: ");
+        String id = in.nextLine();
+        boolean ok = ctrl.removerPorId(id);
+        System.out.println(ok ? "Removido." : "ID não encontrado.");
+    }
+
+    private int lerInt(String s) {
+        try { return Integer.parseInt(s.trim()); }
+        catch (NumberFormatException e) { 
+            throw new IllegalArgumentException("Número inteiro inválido."); 
         }
     }
 }

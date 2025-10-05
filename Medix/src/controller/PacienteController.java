@@ -12,7 +12,7 @@ public class PacienteController {
         this.repo = repo;
     }
 
-    public Paciente cadastrar(String nome, String cpf, int idade) {
+    public Paciente cadastrar(String nome, String cpf, int idade, String planoId, boolean especial, String observacao) {
         if (nome == null || nome.isBlank()) {
             throw new IllegalArgumentException("Nome não pode ser vazio.");
         }
@@ -23,8 +23,16 @@ public class PacienteController {
             throw new IllegalArgumentException("Idade inválida.");
         }
 
-        String id = IdSequence.nextId("P");
-        Paciente p = new Paciente(id, nome.trim(), cpf.trim(), idade);
+        String id = infra.IdSequence.nextId("P");
+
+        model.pacientes.Paciente p;
+        if (especial) {
+            p = new model.pacientes.PacienteEspecial(id, nome.trim(), cpf.trim(), idade, planoId, 
+            observacao == null ? "" : observacao.trim());
+        } else {
+            p = new model.pacientes.Paciente(id, nome.trim(), cpf.trim(), idade, planoId, false);
+        }
+
         repo.add(p);
         return p;
     }

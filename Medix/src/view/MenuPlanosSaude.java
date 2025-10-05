@@ -1,15 +1,15 @@
 package view;
 
-import controller.MedicoController;
+import controller.PlanoSaudeController;
 import java.util.List;
 import java.util.Scanner;
-import model.medicos.Medico;
+import model.planos.PlanoSaude;
 
-public class MenuMedicos {
+public class MenuPlanosSaude {
     private final Scanner in;
-    private final MedicoController ctrl;
+    private final PlanoSaudeController ctrl;
 
-    public MenuMedicos(Scanner in, MedicoController ctrl) {
+    public MenuPlanosSaude(Scanner in, PlanoSaudeController ctrl) {
         this.in = in;
         this.ctrl = ctrl;
     }
@@ -17,10 +17,9 @@ public class MenuMedicos {
     public void mostrar() {
         int op;
         do {
-            System.out.println("=== MÉDICOS ===");
-            System.out.println("1) Cadastrar");
-            System.out.println("2) Listar");
-            System.out.println("3) Remover por ID");
+            System.out.println("=== PLANOS DE SAÚDE ===");
+            System.out.println("1) Cadastrar plano");
+            System.out.println("2) Listar planos");
             System.out.println("0) Voltar");
             System.out.print("Opção: ");
             String s = in.nextLine().trim();
@@ -30,7 +29,6 @@ public class MenuMedicos {
                 switch (op) {
                     case 1 -> cadastrar();
                     case 2 -> listar();
-                    case 3 -> remover();
                     case 0 -> System.out.println("Voltando...");
                     default -> System.out.println("Opção inválida.");
                 }
@@ -42,36 +40,30 @@ public class MenuMedicos {
     }
 
     private void cadastrar() {
-        System.out.print("Nome: ");
+        System.out.print("Nome do plano: ");
         String nome = in.nextLine();
 
-        System.out.print("CRM: ");
-        String crm = in.nextLine();
+        System.out.print("Desconto em consultas (%) [ex.: 20]: ");
+        double dConsulta = lerDouble(in.nextLine());
 
-        System.out.print("Especialidade: ");
-        String esp = in.nextLine();
+        System.out.print("Desconto em internações (%) [ex.: 10]: ");
+        double dIntern = lerDouble(in.nextLine());
 
-        System.out.print("Valor da consulta (R$): ");
-        double valor = lerDouble(in.nextLine());
-
-        Medico m = ctrl.cadastrar(nome, crm, esp, valor);
-        System.out.println("Médico cadastrado: " + m);
+        PlanoSaude p = ctrl.cadastrar(nome, dConsulta, dIntern);
+        System.out.println("Plano cadastrado: " + p);
     }
 
     private void listar() {
-        List<Medico> medicos = ctrl.listarTodos();
-        if (medicos.isEmpty()) {
-            System.out.println("Nenhum médico cadastrado.");
+        List<PlanoSaude> planos = ctrl.listar();
+        if (planos.isEmpty()) {
+            System.out.println("Nenhum plano cadastrado.");
             return;
         }
-        for (Medico m : medicos) System.out.println(m);
-    }
-
-    private void remover() {
-        System.out.print("ID do médico: ");
-        String id = in.nextLine();
-        boolean ok = ctrl.removerPorId(id);
-        System.out.println(ok ? "Removido." : "ID não encontrado.");
+        System.out.println("ID | NOME | DESC_CONS(%) | DESC_INT(%)");
+        for (PlanoSaude p : planos) {
+            System.out.printf("%s | %s | %.1f | %.1f%n",
+                    p.getId(), p.getNome(), p.getDescontoConsulta(), p.getDescontoInternacao());
+        }
     }
 
     private double lerDouble(String s) {
