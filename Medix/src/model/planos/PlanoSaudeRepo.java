@@ -2,7 +2,6 @@ package model.planos;
 
 import infra.CSV;
 import infra.Storage;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,5 +48,11 @@ public class PlanoSaudeRepo {
             }
         }
     }
-    private static double parse(String s){ try { return Double.parseDouble(s);} catch(Exception e){return 0.0;}}
+    private static double parse(String s) {
+        try {
+            return Double.parseDouble(s);
+        } catch (NumberFormatException | NullPointerException e) {
+            return 0.0;
+        }
+    }
 }

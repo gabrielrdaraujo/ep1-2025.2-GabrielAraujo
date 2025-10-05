@@ -1,29 +1,22 @@
 package model.pacientes;
 
 public class PacienteEspecial extends Paciente {
-    private String planoSaude;
+    private String observacao;
 
-    public PacienteEspecial(String id, String nome, String cpf, int idade, String planoSaude) {
+    public PacienteEspecial(String id, String nome, String cpf, int idade, String planoSaude, String observacao) {
         super(id, nome, cpf, idade);
-        this.planoSaude = planoSaude;
+        this.observacao = observacao;
     }
 
-    public String getPlanoSaude() {
-        return planoSaude;
+    public String getObservacao() {
+        return observacao;
     }
 
-    public void setPlanoSaude(String planoSaude) {
-        this.planoSaude = planoSaude;
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 
-    @Override
-    public String toString() {
-        return "PacienteEspecial{" +
-                "planoSaude='" + planoSaude + '\'' +
-                ", id='" + getId() + '\'' +
-                ", nome='" + getNome() + '\'' +
-                ", cpf='" + getCpf() + '\'' +
-                ", idade=" + getIdade() +
-                '}';
+    @Override public String toString() {
+        return "PacienteEspecial{" + super.toString() + ", obs='" + observacao + "'}";
     }
 }

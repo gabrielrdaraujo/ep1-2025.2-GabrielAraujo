@@ -5,16 +5,27 @@ public class Paciente {
     private String nome;
     private String cpf;
     private int idade;
+    private String planoSaudeId; 
+    private boolean especial;
     
-    // Construtor 
     public Paciente(String id, String nome, String cpf, int idade) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.idade = idade;
+        this.planoSaudeId = null;
+        this.especial = false;
     }
 
-    // Getters e Setters
+    public Paciente(String id, String nome, String cpf, int idade, String planoSaudeId, boolean especial) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.idade = idade;
+        this.planoSaudeId = (planoSaudeId != null && !planoSaudeId.isEmpty()) ? planoSaudeId : null;
+        this.especial = especial;
+    }
+
     public String getId() {
         return id;
     }
@@ -47,6 +58,22 @@ public class Paciente {
         this.idade = idade;
     }
 
+    public String getPlanoSaudeId() {
+        return planoSaudeId;
+    }
+
+    public void setPlanoSaudeId(String planoSaudeId) {
+        this.planoSaudeId = planoSaudeId;
+    }
+
+    public boolean isEspecial() {
+        return especial;
+    }
+
+    public void setEspecial(boolean especial) {
+        this.especial = especial;
+    }
+
     @Override
     public String toString() {
         return "Paciente{" +
@@ -54,6 +81,8 @@ public class Paciente {
                 ", nome='" + nome + '\'' +
                 ", cpf='" + cpf + '\'' +
                 ", idade=" + idade +
+                ", planoSaudeId='" + planoSaudeId + '\'' +
+                ", especial=" + especial +
                 '}';
     }
 }
