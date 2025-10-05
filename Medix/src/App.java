@@ -1,9 +1,4 @@
-import controller.ConsultaController;
-import controller.InternacaoController;
-import controller.MedicoController;
-import controller.PacienteController;
-import controller.PlanoSaudeController;
-import controller.RelatorioController;
+import controller.*;
 import model.consultas.ConsultaRepo;
 import model.internacoes.InternacaoRepo;
 import model.medicos.MedicoRepo;
@@ -24,17 +19,10 @@ public class App {
         ConsultaController   consultaController   = new ConsultaController(consultaRepo, pacienteRepo, medicoRepo);
         InternacaoController internacaoController = new InternacaoController(internacaoRepo, pacienteRepo, medicoRepo);
         PlanoSaudeController planoController      = new PlanoSaudeController(planoRepo);
-        RelatorioController  relatorioController  = new RelatorioController(consultaRepo, pacienteRepo, medicoRepo, planoRepo);
+        RelatorioController  relatorioController  = new RelatorioController(consultaRepo, pacienteRepo, medicoRepo, planoRepo, internacaoRepo);
 
-        new MenuPrincipal(
-            pacienteController,
-            medicoController,
-            consultaController,
-            internacaoController,
-            planoController,        
-            relatorioController      
-        ).mostrar();
-
+        new MenuPrincipal(pacienteController, medicoController, consultaController,
+                          internacaoController, planoController, relatorioController).mostrar();
         System.out.println("Encerrando o Medix. Até mais!");
     }
 }
