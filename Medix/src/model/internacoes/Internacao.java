@@ -1,5 +1,10 @@
 package model.internacoes;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
+
 public class Internacao {
     private final String id;
     private final String pacienteId;
@@ -7,6 +12,20 @@ public class Internacao {
     private final String quarto;
     private final String dataEntrada;
     private String dataSaida;
+    private double custoDia;
+
+    public static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    public Internacao(String id, String pacienteId, String medicoId, 
+    String quarto, String dataEntrada, String dataSaida, double custoDia) {
+        this.id = id;
+        this.pacienteId = pacienteId;
+        this.medicoId = medicoId;
+        this.quarto = quarto;
+        this.dataEntrada = dataEntrada;
+        this.dataSaida = dataSaida;
+        this.custoDia = custoDia;
+    }
 
     public Internacao(String id, String pacienteId, String medicoId, 
     String quarto, String dataEntrada, String dataSaida) {
@@ -16,6 +35,7 @@ public class Internacao {
         this.quarto = quarto;
         this.dataEntrada = dataEntrada;
         this.dataSaida = dataSaida;
+        this.custoDia = 0.0;
     }
 
     public String getId() {
@@ -50,6 +70,21 @@ public class Internacao {
         return dataSaida == null || dataSaida.isEmpty();
     }
 
+    public double getCustoDia() {
+        return custoDia;
+    }
+
+    public void setCustoDia(double custoDia) {
+        this.custoDia = custoDia;
+    }
+
+    public long diasInternado() {
+        LocalDate entrada = LocalDate.parse(dataEntrada, FMT);
+        LocalDate saida = estaAtiva() ? LocalDate.now() : LocalDate.parse(dataSaida, FMT);
+        long dias = ChronoUnit.DAYS.between(entrada, saida);
+        return Math.max(dias, 1);
+    }
+
     @Override
     public String toString() {
         return "Internacao{" +
@@ -59,6 +94,7 @@ public class Internacao {
                 ", quarto='" + quarto + '\'' +
                 ", dataEntrada='" + dataEntrada + '\'' +
                 ", dataSaida='" + dataSaida + '\'' +
+                ", custoDia=" + custoDia +
                 '}';
     }
 }

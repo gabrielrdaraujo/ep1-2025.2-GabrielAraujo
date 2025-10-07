@@ -1,5 +1,7 @@
 package controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import model.consultas.Consulta;
 import model.consultas.ConsultaRepo;
@@ -13,7 +15,6 @@ import model.planos.PlanoSaude;
 import model.planos.PlanoSaudeRepo;
 
 public class RelatorioController {
-
     private final ConsultaRepo consultaRepo;
     private final PacienteRepo pacienteRepo;
     private final MedicoRepo   medicoRepo;
@@ -26,6 +27,91 @@ public class RelatorioController {
         this.medicoRepo   = m;
         this.planoRepo    = pl;
         this.internacaoRepo = i;
+    }
+
+    public String agoraString() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        return dtf.format(now);
+    }
+
+    public List<Consulta> consultasFuturas() {
+        String agora = agoraString();
+        List<Consulta> out = new ArrayList<>();
+        for (Consulta c : consultaRepo.findAll()) {
+            if (c.getDataHora().compareTo(agora) > 0 && !"CANCELADA".equals(c.getStatus())) {
+                out.add(c);
+            }
+        } return out;
+    }
+
+    public List<Consulta> consultasPassadas() {
+        String agora = agoraString();
+        List<Consulta> out = new ArrayList<>();
+        for (Consulta c : consultaRepo.findAll()) {
+            if (c.getDataHora().compareTo(agora) <= 0) {
+                out.add(c);
+            }
+        } return out;
+    }
+
+    public List<Consulta> agendaMedicoFuturas(String medicoId) {
+        String agora = agoraString();
+        List<Consulta> out = new ArrayList<>();
+        for (Consulta c : consultaRepo.findAll()) {
+            if (c.getMedicoId().equals(medicoId) &&
+                "AGENDADA".equals(c.getStatus()) &&
+                c.getDataHora().compareTo(agora) > 0) {
+                    out.add(c);
+                }
+        } return out;
+    }
+
+    public String medicoQueMaisAtendeu() {
+        Map<String,Integer> contagem = new HashMap<>();
+        for (Consulta c : consultaRepo.findAll()) {
+            if ("CONCLUIDA".equals(c.getStatus()))
+                contagem.merge(c.getMedicoId(), 1, Integer::sum);
+        }
+        
+        String topId = null; int top = -1;
+        for (var e : contagem.entrySet()) if (e.getValue() > top) { top = e.getValue(); topId = e.getKey(); }
+        if (topId == null) return "sem dados";
+        Medico m = medicoRepo.findById(topId);
+        return m == null ? topId : (m.getNome() + " (" + m.getId() + ") - " + top + " consultas");
+    }
+
+    public String especialidadeMaisProcurada() {
+        Map<String,Integer> contagem = new HashMap<>();
+        for (Consulta c : consultaRepo.findAll()) {
+            Medico m = medicoRepo.findById(c.getMedicoId());
+            String esp = m == null ? "DESCONHECIDA" : m.getEspecialidade();
+            contagem.merge(esp, 1, Integer::sum);
+        }
+        String top = null; int qt = -1;
+        for (var e : contagem.entrySet()) if (e.getValue() > qt) { qt = e.getValue(); top = e.getKey(); }
+        return top == null ? "sem dados" : top + " - " + qt + " consultas";
+    }
+
+    public List<String> pacientesDetalhados() {
+        List<String> linhas = new ArrayList<>();
+        for (Paciente p : pacienteRepo.findAll()) {
+            linhas.add(p.toString());
+
+            for (Consulta c : consultaRepo.findAll()) {
+                if (c.getPacienteId().equals(p.getId())) {
+                    linhas.add("  - " + c);
+                }
+            }
+
+            for (var i : internacaoRepo.findAll()) {
+                if (i.getPacienteId().equals(p.getId())) {
+                    linhas.add("  * " + i);
+                }
+            }
+            linhas.add("");
+        }
+        return linhas;
     }
 
     public int totalConsultas() {

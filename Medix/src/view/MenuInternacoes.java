@@ -1,10 +1,9 @@
 package view;
 
 import controller.InternacaoController;
-import model.internacoes.Internacao;
-
 import java.util.List;
 import java.util.Scanner;
+import model.internacoes.Internacao;
 
 public class MenuInternacoes {
     private final Scanner in;
@@ -59,7 +58,10 @@ public class MenuInternacoes {
         System.out.print("Data de entrada (ex.: 2025-10-01): ");
         String dataEntrada = in.nextLine();
 
-        Internacao i = controller.internar(pacienteId, medicoId, quarto, dataEntrada);
+        System.out.print("Custo por dia (ex.: 150.0): ");
+        double custoDia = Double.parseDouble(in.nextLine().trim().replace(',', '.'));
+
+        Internacao i = controller.internar(pacienteId, medicoId, quarto, dataEntrada, custoDia);
         System.out.println("Internação criada: " + i);
     }
 

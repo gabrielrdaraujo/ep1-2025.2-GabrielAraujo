@@ -18,14 +18,26 @@ public class InternacaoController {
         this.medicoRepo = medicoRepo;
     }
 
-    public Internacao internar(String pacienteId, String medicoId, String quarto, String dataEntrada) {
-        if (pacienteId == null || pacienteId.isBlank()) throw new IllegalArgumentException("Paciente inválido.");
-        if (medicoId   == null || medicoId.isBlank())   throw new IllegalArgumentException("Médico inválido.");
-        if (quarto     == null || quarto.isBlank())     throw new IllegalArgumentException("Quarto inválido.");
-        if (dataEntrada== null || dataEntrada.isBlank())throw new IllegalArgumentException("Data de entrada inválida.");
+    public Internacao internar(String pacienteId, String medicoId, String quarto, String dataEntrada, double custoDia) {
+        if (pacienteId == null || pacienteId.isBlank()) {
+            throw new IllegalArgumentException("Paciente inválido.");
+        }
+
+        if (medicoId == null || medicoId.isBlank()) {
+            throw new IllegalArgumentException("Médico inválido.");
+        }
+
+        if (quarto == null || quarto.isBlank()) {
+            throw new IllegalArgumentException("Quarto inválido.");
+        }
+
+        if (dataEntrada == null || dataEntrada.isBlank()) {
+            throw new IllegalArgumentException("Data de entrada inválida.");
+        }
 
         if (pacienteRepo.findById(pacienteId) == null)
             throw new IllegalArgumentException("Paciente não encontrado: " + pacienteId);
+
         if (medicoRepo.findById(medicoId) == null)
             throw new IllegalArgumentException("Médico não encontrado: " + medicoId);
 
@@ -33,23 +45,35 @@ public class InternacaoController {
             throw new IllegalStateException("Quarto já está ocupado por outra internação ativa.");
 
         String id = IdSequence.nextId("I");
-        Internacao i = new Internacao(id, pacienteId, medicoId, quarto.trim(), dataEntrada.trim(), null);
+        Internacao i = new Internacao(id, pacienteId, medicoId, quarto.trim(), dataEntrada.trim(), null, custoDia);
         internacaoRepo.add(i);
         return i;
     }
 
     public void darAlta(String internacaoId, String dataSaida) {
-        if (internacaoId == null || internacaoId.isBlank()) throw new IllegalArgumentException("ID inválido.");
-        if (dataSaida    == null || dataSaida.isBlank())    throw new IllegalArgumentException("Data de saída inválida.");
+        if (internacaoId == null || internacaoId.isBlank()) {
+            throw new IllegalArgumentException("ID inválido.");
+        }
+
+        if (dataSaida    == null || dataSaida.isBlank()) {
+            throw new IllegalArgumentException("Data de saída inválida.");
+        }
 
         Internacao i = internacaoRepo.findById(internacaoId);
-        if (i == null)          throw new IllegalArgumentException("Internação não encontrada: " + internacaoId);
-        if (!i.estaAtiva())     throw new IllegalStateException("Esta internação já possui alta.");
+        if (i == null) 
+            throw new IllegalArgumentException("Internação não encontrada: " + internacaoId);
+
+        if (!i.estaAtiva()) 
+            throw new IllegalStateException("Esta internação já possui alta.");
 
         i.setDataSaida(dataSaida.trim());
-        // opcional: internacaoRepo.salvar() se você quiser forçar persistência imediata
     }
 
-    public List<Internacao> listarAtivas() { return internacaoRepo.listarAtivas(); }
-    public List<Internacao> listarTodas()  { return internacaoRepo.findAll(); }
+    public List<Internacao> listarAtivas() { 
+        return internacaoRepo.listarAtivas(); 
+    }
+
+    public List<Internacao> listarTodas() { 
+        return internacaoRepo.findAll(); 
+    }
 }

@@ -8,11 +8,11 @@ import model.internacoes.Internacao;
 
 public class MenuRelatorios {
     private final Scanner in;
-    private final RelatorioController ctrl;
+    private final RelatorioController controller;
 
-    public MenuRelatorios(Scanner in, RelatorioController ctrl) {
+    public MenuRelatorios(Scanner in, RelatorioController controller) {
         this.in = in;
-        this.ctrl = ctrl;
+        this.controller = controller;
     }
 
     public void mostrar() {
@@ -20,12 +20,18 @@ public class MenuRelatorios {
         do {
             System.out.println("=== RELATÓRIOS ===");
             System.out.println("1) Total de consultas");
-            System.out.println("2) Consultas por médico");
-            System.out.println("3) Consultas por especialidade");
+            System.out.println("2) Consultas por médico (contagem)");
+            System.out.println("3) Consultas por especialidade (contagem)");
             System.out.println("4) Faturamento estimado (todas)");
-            System.out.println("5) Consultas em período");
+            System.out.println("5) Consultas em período (contagem)");
             System.out.println("6) Faturamento no período");
             System.out.println("7) Internações ativas (lista e total)");
+            System.out.println("8) Consultas FUTURAS");
+            System.out.println("9) Consultas PASSADAS");
+            System.out.println("10) Agenda do médico (futuras)");
+            System.out.println("11) Médico que mais atendeu");
+            System.out.println("12) Especialidade mais procurada");
+            System.out.println("13) Pacientes detalhados (com histórico)");
             System.out.println("0) Voltar");
             System.out.print("Opção: ");
             String s = in.nextLine().trim();
@@ -33,24 +39,34 @@ public class MenuRelatorios {
 
             try {
                 switch (op) {
-                    case 1 -> System.out.println("Total de consultas: " + ctrl.totalConsultas());
-                    case 2 -> verMapa(ctrl.consultasPorMedico(), "MedicoID", "Qtde");
-                    case 3 -> verMapa(ctrl.consultasPorEspecialidade(), "Especialidade", "Qtde");
-                    case 4 -> System.out.printf("Faturamento estimado: R$ %.2f%n", ctrl.faturamentoEstimado());
+                    case 1 -> System.out.println("Total de consultas: " + controller.totalConsultas());
+                    case 2 -> verMapa(controller.consultasPorMedico(), "MedicoID", "Qtde");
+                    case 3 -> verMapa(controller.consultasPorEspecialidade(), "Especialidade", "Qtde");
+                    case 4 -> System.out.printf("Faturamento estimado: R$ %.2f%n", controller.faturamentoEstimado());
                     case 5 -> {
                         String[] per = lerPeriodo();
-                        System.out.println("Consultas no período: " + ctrl.totalConsultasNoPeriodo(per[0], per[1]));
+                        System.out.println("Consultas no período: " + controller.totalConsultasNoPeriodo(per[0], per[1]));
                     }
                     case 6 -> {
                         String[] per = lerPeriodo();
                         System.out.printf("Faturamento no período: R$ %.2f%n",
-                                ctrl.faturamentoNoPeriodo(per[0], per[1]));
+                                controller.faturamentoNoPeriodo(per[0], per[1]));
                     }
                     case 7 -> {
-                        List<Internacao> ativas = ctrl.listarInternacoesAtivas();
+                        List<Internacao> ativas = controller.listarInternacoesAtivas();
                         System.out.println("Ativas: " + ativas.size());
                         for (Internacao i : ativas) System.out.println(i);
                     }
+                    case 8 -> controller.consultasFuturas().forEach(System.out::println);
+                    case 9 -> controller.consultasPassadas().forEach(System.out::println);
+                    case 10 -> {
+                        System.out.print("ID do médico: ");
+                        String mid = in.nextLine().trim();
+                        controller.agendaMedicoFuturas(mid).forEach(System.out::println);
+                    }
+                    case 11 -> System.out.println(controller.medicoQueMaisAtendeu());
+                    case 12 -> System.out.println(controller.especialidadeMaisProcurada());
+                    case 13 -> controller.pacientesDetalhados().forEach(System.out::println);
                     case 0 -> System.out.println("Voltando...");
                     default -> System.out.println("Opção inválida.");
                 }

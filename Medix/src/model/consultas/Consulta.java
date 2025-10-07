@@ -7,14 +7,18 @@ public class Consulta {
     private final String dataHora; 
     private final String local;    
     private String status;   
+    private String diagnostico;
+    private String prescricao;
 
-    public Consulta(String id, String pacienteId, String medicoId, String dataHora, String local, String status) {
+    public Consulta(String id, String pacienteId, String medicoId, String dataHora, String local, String status, String diagnostico, String prescricao) {
         this.id = id;
         this.pacienteId = pacienteId;
         this.medicoId = medicoId;
         this.dataHora = dataHora;
         this.local = local;
         this.status = status;
+        this.diagnostico = diagnostico == null ? "" : diagnostico;
+        this.prescricao = prescricao == null ? "" : prescricao;
     }
 
     public String getId() { 
@@ -41,7 +45,25 @@ public class Consulta {
         return status; 
     }
 
-    public void setStatus(String status) { this.status = status; }
+    public void setStatus(String status) { 
+        this.status = status; 
+    }
+
+    public String getDiagnostico() { 
+        return diagnostico; 
+    }
+
+    public void setDiagnostico(String diagnostico) { 
+        this.diagnostico = diagnostico == null ? "" : diagnostico;
+    }
+
+    public String getPrescricao() { 
+        return prescricao; 
+    }
+
+    public void setPrescricao(String prescricao) { 
+        this.prescricao = prescricao == null ? "" : prescricao; 
+    }
 
 
     @Override
@@ -53,6 +75,8 @@ public class Consulta {
                 ", dataHora='" + dataHora + '\'' +
                 ", local='" + local + '\'' +
                 ", status='" + status + '\'' +
+                ", diagnostico='" + diagnostico + '\'' +
+                ", prescricao='" + prescricao + '\'' +
                 '}';
     }
 }

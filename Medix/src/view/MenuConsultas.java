@@ -1,10 +1,9 @@
 package view;
 
 import controller.ConsultaController;
-import model.consultas.Consulta;
-
 import java.util.List;
 import java.util.Scanner;
+import model.consultas.Consulta;
 
 public class MenuConsultas {
     private final Scanner in;
@@ -21,6 +20,8 @@ public class MenuConsultas {
             System.out.println("=== CONSULTAS ===");
             System.out.println("1) Agendar consulta");
             System.out.println("2) Listar consultas");
+            System.out.println("3) Concluir");
+            System.out.println("4) Cancelar");
             System.out.println("0) Voltar");
             System.out.print("Opção: ");
             String line = in.nextLine().trim();
@@ -30,6 +31,8 @@ public class MenuConsultas {
                 switch (op) {
                     case 1 -> agendar();
                     case 2 -> listar();
+                    case 3 -> concluir();
+                    case 4 -> cancelar();
                     case 0 -> System.out.println("Voltando...");
                     default -> System.out.println("Opção inválida.");
                 }
@@ -65,11 +68,34 @@ public class MenuConsultas {
             System.out.println("(nenhuma consulta cadastrada)");
             return;
         }
+
         System.out.println("ID | PACIENTE | MEDICO | DATA/HORA | LOCAL | STATUS");
         for (Consulta c : lista) {
             System.out.printf("%s | %s | %s | %s | %s | %s%n",
                     c.getId(), c.getPacienteId(), c.getMedicoId(),
                     c.getDataHora(), c.getLocal(), c.getStatus());
         }
+    }
+
+    private void concluir() {
+        System.out.print("Consulta ID: "); 
+        String id = in.nextLine().trim();
+
+        System.out.print("Diagnóstico: "); 
+        String diag = in.nextLine();
+
+        System.out.print("Prescrição: ");  
+        String presc = in.nextLine();
+
+        controller.concluir(id, diag, presc);
+        System.out.println("Consulta concluída.");
+    }
+
+    private void cancelar() {
+        System.out.print("Consulta ID: "); 
+        String id = in.nextLine().trim();
+        
+        controller.cancelar(id);
+        System.out.println("Consulta cancelada.");
     }
 }
