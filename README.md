@@ -26,6 +26,8 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
    [O usuário deve em seguida executar o comando `java App` no terminal para **executar** o projeto]
 
 3. **Estrutura de Pastas:**  
+
+```
    ├─ src/
    │  ├─ controller/
    │  ├─ infra/
@@ -38,6 +40,7 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
    │  └─ view/
    ├─ data/
    ├─ out/
+```
 
 3. **Versão do JAVA utilizada:**  
    [`java 17`]
@@ -61,11 +64,14 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
 3. Menu Relatórios:  
    ![Menu Relatórios](<./screenshots/MenuRelatórios.jpg>)
 
+4. Cadastro Paciente:
+   ![Cadastro Pacientes](<./screenshots/CadastroPaciente.jpg>)
+
 ---
 
 ## Observações (Extras ou Dificuldades)
 
-- [O trabalho foi feito com a arquitetura MVC/infra simples e direta. Algumas da dificuldades enfrentadas ao longo da execução do projeto foram o entendimento/aplicação da complexidade da persistência de dados CSV, de algumas funcionalidades ─ como a de leitura e comparação de datas ─ além do tratamento de erros. Como pontos extras, cabe citar os planos de saúde com descontos (para idosos 60+ há desconto especial), as internações possuem a funcionalidade de informar o custo diário e são gratuitas para períodos menores que 7 dias. Além disso, há alguns relatórios extras aos do enunciado.]
+- [O trabalho foi feito com a arquitetura MVC/infra simples e direta. Algumas da dificuldades enfrentadas ao longo da execução do projeto foram o entendimento no início, a aplicação da complexidade da persistência de dados CSV, de algumas funcionalidades ─ como a de leitura e comparação de datas ─ além do tratamento de erros. Como pontos extras, cabe citar os planos de saúde com descontos (para idosos 60+ há desconto especial), as internações possuem a funcionalidade de informar o custo diário e são gratuitas para períodos menores que 7 dias. Além disso, há alguns relatórios extras aos do enunciado.]
 
 ---
 
