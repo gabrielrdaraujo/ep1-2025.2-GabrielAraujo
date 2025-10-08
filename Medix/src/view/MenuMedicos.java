@@ -6,14 +6,19 @@ import java.util.Scanner;
 import model.medicos.Medico;
 
 public class MenuMedicos {
+    // Atributos
     private final Scanner in;
     private final MedicoController controller;
 
+    // Construtor
     public MenuMedicos(Scanner in, MedicoController controller) {
         this.in = in;
         this.controller = controller;
     }
 
+    // Métodos
+
+    // Menu Médicos
     public void mostrar() {
         int op;
         do {
@@ -35,12 +40,13 @@ public class MenuMedicos {
                     default -> System.out.println("Opção inválida.");
                 }
             } catch (Exception e) {
-                System.out.println("Erro: " + e.getMessage());
+                System.out.println("Erro: " + e.getMessage()); // Tratamento genérico de erros
             }
             System.out.println();
         } while (op != 0);
     }
 
+    // Cadastrar médico
     private void cadastrar() {
         System.out.print("Nome: ");
         String nome = in.nextLine();
@@ -58,15 +64,17 @@ public class MenuMedicos {
         System.out.println("Médico cadastrado: " + m);
     }
 
+    // Listar médicos
     private void listar() {
         List<Medico> medicos = controller.listarTodos();
         if (medicos.isEmpty()) {
-            System.out.println("Nenhum médico cadastrado.");
+            System.out.println("Nenhum médico cadastrado."); // Mensagem se a lista estiver vazia
             return;
         }
         for (Medico m : medicos) System.out.println(m);
     }
 
+    // Remover médico por ID
     private void remover() {
         System.out.print("ID do médico: ");
         String id = in.nextLine();
@@ -74,6 +82,7 @@ public class MenuMedicos {
         System.out.println(ok ? "Removido." : "ID não encontrado.");
     }
 
+    // Método auxiliar para ler double com tratamento de erro com vírgula ou ponto
     private double lerDouble(String s) {
         try { 
             return Double.parseDouble(s.replace(',', '.')); 

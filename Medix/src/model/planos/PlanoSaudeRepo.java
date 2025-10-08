@@ -6,21 +6,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlanoSaudeRepo {
+    // Lista de planos
     private final List<PlanoSaude> planos = new ArrayList<>();
 
+    // Construtor que carrega os dados na inicialização 
     public PlanoSaudeRepo() { 
         carregar(); 
     }
 
+    // Métodos 
+
+    // Adiciona um novo plano e salva 
     public void add(PlanoSaude p) { 
         planos.add(p); 
         salvar(); 
     }
 
+    // Remove um plano pelo ID e salva
     public List<PlanoSaude> findAll() { 
         return planos; 
     }
 
+    // Busca um plano pelo ID
     public PlanoSaude findById(String id) {
         for (PlanoSaude p : planos) {
             if (p.getId().equals(id)) {
@@ -29,6 +36,7 @@ public class PlanoSaudeRepo {
         } return null;
     }
 
+    // Método para salvar os dados no CSV (backup)
     public void salvar() {
         List<String[]> linhas = new ArrayList<>();
         for (PlanoSaude p : planos) {
@@ -43,6 +51,7 @@ public class PlanoSaudeRepo {
         CSV.write(Storage.PLANOS, linhas);
     }
 
+    // Método para carregar os dados do CSV (inicialização)
     private void carregar() {
         planos.clear();
         for (String[] r : CSV.read(Storage.PLANOS)) {
@@ -60,6 +69,8 @@ public class PlanoSaudeRepo {
         }
     }
 
+
+    // Métodos de parsing de String para double e boolean
     private static double parse(String s) {
         try {
             return Double.parseDouble(s);

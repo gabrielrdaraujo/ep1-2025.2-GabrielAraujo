@@ -6,14 +6,19 @@ import java.util.Scanner;
 import model.internacoes.Internacao;
 
 public class MenuInternacoes {
+    // Atributos
     private final Scanner in;
     private final InternacaoController controller;
 
+    // Construtor
     public MenuInternacoes(Scanner in, InternacaoController controller) {
         this.in = in;
         this.controller = controller;
     }
 
+    // Métodos
+
+    // Menu Internações
     public void mostrar() {
         int op;
         do {
@@ -45,6 +50,7 @@ public class MenuInternacoes {
         } while (op != 0);
     }
 
+    // Internar paciente
     private void internar() {
         System.out.print("ID do Paciente: ");
         String pacienteId = in.nextLine();
@@ -59,12 +65,13 @@ public class MenuInternacoes {
         String dataEntrada = in.nextLine();
 
         System.out.print("Custo por dia (ex.: 150.0): ");
-        double custoDia = Double.parseDouble(in.nextLine().trim().replace(',', '.'));
+        double custoDia = Double.parseDouble(in.nextLine().trim().replace(',', '.')); // Custo Diario (considera vírgula ou ponto)
 
         Internacao i = controller.internar(pacienteId, medicoId, quarto, dataEntrada, custoDia);
         System.out.println("Internação criada: " + i);
     }
 
+    // Dar alta
     private void darAlta() {
         System.out.print("ID da Internação: ");
         String internacaoId = in.nextLine();
@@ -76,6 +83,7 @@ public class MenuInternacoes {
         System.out.println("Alta registrada com sucesso.");
     }
 
+    // Listar internações ativas
     private void listarAtivas() {
         List<Internacao> lista = controller.listarAtivas();
         if (lista.isEmpty()) {
@@ -91,6 +99,7 @@ public class MenuInternacoes {
         }
     }
 
+    // Listar todas as internações
     private void listarTodas() {
         List<Internacao> lista = controller.listarTodas();
         if (lista.isEmpty()) {

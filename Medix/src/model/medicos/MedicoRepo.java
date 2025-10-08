@@ -9,22 +9,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MedicoRepo {
+    // Lista de médicos
     private final List<Medico> medicos = new ArrayList<>();
 
+    // Construtor (carrega o iniciar o repositório)
     public MedicoRepo() {
         garantirPastaData();
         carregar();
     }
 
+    // Métodos
+
+    // Adiciona um novo médico e salva
     public void add(Medico m) {
         medicos.add(m);
         salvar();
     }
 
+    // Lista todos os médicos
     public List<Medico> findAll() {
         return medicos;
     }
 
+    // Busca médico por ID
     public Medico findById(String id) {
         for (Medico m : medicos) {
             if (m.getId().equals(id)) {
@@ -33,6 +40,7 @@ public class MedicoRepo {
         } return null;
     }
 
+    // Remove médico por ID e salva
     public boolean remove(String id) {
         boolean removed = medicos.removeIf(m -> m.getId().equals(id));
         if (removed) {
@@ -40,6 +48,8 @@ public class MedicoRepo {
         } return removed;
     }
 
+
+    // Método para salvar dados em CSV (backup)
     private void salvar() {
         List<String[]> linhas = new ArrayList<>();
         for (Medico m : medicos) {
@@ -54,6 +64,7 @@ public class MedicoRepo {
         CSV.write(Storage.MEDICOS, linhas);
     }
 
+    // Método para carregar dados de CSV (inicialização)
     private void carregar() {
         List<String[]> linhas = CSV.read(Storage.MEDICOS);
         medicos.clear();
@@ -66,6 +77,7 @@ public class MedicoRepo {
         }
     }
 
+    // Método auxiliar para converter String em double com tratamento de erros
     public static double parseDoubleSafe(String s) {
         try {
             return Double.parseDouble(s);
@@ -74,6 +86,7 @@ public class MedicoRepo {
         }
     }
 
+    // Garante que a pasta data/ exista
     private void garantirPastaData() {
         try {
             Files.createDirectories(Paths.get(Storage.DATA_FOLDER));

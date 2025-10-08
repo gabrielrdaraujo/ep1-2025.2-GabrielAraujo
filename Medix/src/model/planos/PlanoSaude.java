@@ -5,9 +5,12 @@ public class PlanoSaude {
     private String nome;
     private double descontoConsulta;
     private double descontoInternacao;
-    private double descontoConsultaIdoso;
-    private boolean internacaoCurtaGratuita;
+    private double descontoConsultaIdoso; // Desconto especial para idosos (60+)
+    private boolean internacaoCurtaGratuita; // Internações menores que 7 dias são gratuitas
 
+    // Construtores
+
+    // Construtor completo
     public PlanoSaude(String id, String nome, double descontoConsulta, 
     double descontoInternacao, double descontoConsultaIdoso, boolean internacaoCurtaGratuita) {
         this.id = id;
@@ -18,6 +21,7 @@ public class PlanoSaude {
         this.internacaoCurtaGratuita = internacaoCurtaGratuita;
     }
 
+    // Construtor sem desconto para idosos e sem internação gratuita
     public PlanoSaude(String id, String nome, double descontoConsulta, double descontoInternacao) { 
         this.id = id;
         this.nome = nome;
@@ -27,6 +31,8 @@ public class PlanoSaude {
         this.internacaoCurtaGratuita = false;
     }
 
+
+    // Getters e Setters
     public String getId() {
         return id;
     }
@@ -71,6 +77,7 @@ public class PlanoSaude {
         this.internacaoCurtaGratuita = internacaoCurtaGratuita;
     }
 
+    // Método toString
     @Override
     public String toString() {
         return "PlanoSaude [id=" + id + ", nome=" + nome + ", descontoConsulta=" + descontoConsulta

@@ -1,11 +1,12 @@
 package model.internacoes;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+import java.time.LocalDate; // Classe LocalDate para manipulação com datas reais 
+import java.time.format.DateTimeFormatter; // Classe DateTimeFormatter para formatar datas
+import java.time.temporal.ChronoUnit; // Classe ChronoUnit para calcular a diferença entre datas
 
 
 public class Internacao {
+    // Atributos
     private final String id;
     private final String pacienteId;
     private final String medicoId;
@@ -14,10 +15,12 @@ public class Internacao {
     private String dataSaida;
     private double custoDia;
 
-    public static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    // Formato padrão para datas ("yyyy-MM-dd")
+    public static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
 
+    // Construtores
     public Internacao(String id, String pacienteId, String medicoId, 
-    String quarto, String dataEntrada, String dataSaida, double custoDia) {
+    String quarto, String dataEntrada, String dataSaida, double custoDia) { // Construtor completo
         this.id = id;
         this.pacienteId = pacienteId;
         this.medicoId = medicoId;
@@ -28,7 +31,7 @@ public class Internacao {
     }
 
     public Internacao(String id, String pacienteId, String medicoId, 
-    String quarto, String dataEntrada, String dataSaida) {
+    String quarto, String dataEntrada, String dataSaida) { // Com Custo diário padrão 0.0
         this.id = id;
         this.pacienteId = pacienteId;
         this.medicoId = medicoId;
@@ -38,6 +41,7 @@ public class Internacao {
         this.custoDia = 0.0;
     }
 
+    // Getters e Setters
     public String getId() {
         return id;
     }
@@ -75,7 +79,7 @@ public class Internacao {
     }
 
     public boolean estaAtiva() {
-        return dataSaida == null || dataSaida.isEmpty();
+        return dataSaida == null || dataSaida.isEmpty(); // Verifica se a internação está ativa (sem data de saída)
     }
 
     public double getCustoDia() {
@@ -86,6 +90,7 @@ public class Internacao {
         this.custoDia = custoDia;
     }
 
+    // Método para calcular o número de dias internado
     public long diasInternado() {
         LocalDate entrada = LocalDate.parse(dataEntrada, FMT);
         LocalDate saida = estaAtiva() ? LocalDate.now() : LocalDate.parse(dataSaida, FMT);
@@ -93,6 +98,7 @@ public class Internacao {
         return Math.max(dias, 1);
     }
 
+    // Método toString
     @Override
     public String toString() {
         return "Internacao{" +

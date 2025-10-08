@@ -1,6 +1,7 @@
 package model.consultas;
 
 public class Consulta {
+    // Atributos
     private final String id;
     private final String pacienteId;
     private final String medicoId;
@@ -10,6 +11,7 @@ public class Consulta {
     private String diagnostico;
     private String prescricao;
 
+    // Construtor
     public Consulta(String id, String pacienteId, String medicoId, String dataHora, String local, String status, 
     String diagnostico, String prescricao) {
         this.id = id;
@@ -18,10 +20,11 @@ public class Consulta {
         this.dataHora = dataHora;
         this.local = local;
         this.status = status;
-        this.diagnostico = diagnostico == null ? "" : diagnostico;
+        this.diagnostico = diagnostico == null ? "" : diagnostico; // Evita null
         this.prescricao = prescricao == null ? "" : prescricao;
     }
 
+    // Getters e Setters
     public String getId() { 
         return id; 
     }
@@ -63,7 +66,7 @@ public class Consulta {
     }
 
     public void setDiagnostico(String diagnostico) { 
-        this.diagnostico = diagnostico == null ? "" : diagnostico;
+        this.diagnostico = diagnostico == null ? "" : diagnostico; // Evita null
     }
 
     public String getPrescricao() { 
@@ -74,7 +77,7 @@ public class Consulta {
         this.prescricao = prescricao == null ? "" : prescricao; 
     }
 
-
+    // toString é usado para printar o objeto
     @Override
     public String toString() {
         return "Consulta{" +

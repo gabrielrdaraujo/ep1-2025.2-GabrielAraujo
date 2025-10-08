@@ -1,26 +1,33 @@
 package model.internacoes;
 
-import infra.CSV;
+import infra.CSV; 
 import infra.Storage;
 import java.util.ArrayList;
 import java.util.List;
 
 public class InternacaoRepo {
+    // Lista de internações
     private final List<Internacao> internacoes = new ArrayList<>();
 
+    // Construtor (carrega os dados ao iniciar o repositório)
     public InternacaoRepo() { 
         carregar(); 
     }
 
+    // Métodos
+
+    // Adiciona uma nova internação e salva
     public void add(Internacao i) {
         internacoes.add(i);
         salvar();
     }
 
+    // Lista todas as internações
     public List<Internacao> findAll() {
         return internacoes;
     }
 
+    // Busca internação por ID
     public Internacao findById(String id) {
         for (Internacao i : internacoes) {
             if (i.getId().equals(id)) {
@@ -29,6 +36,7 @@ public class InternacaoRepo {
         } return null;
     }
 
+    // Remove internação por ID e salva
     public boolean remove(String id) {
         boolean removed = internacoes.removeIf(i -> i.getId().equals(id));
         if (removed) {
@@ -36,6 +44,7 @@ public class InternacaoRepo {
         } return removed;
     }
 
+    // Verifica se um quarto já está ocupado
     public boolean quartoOcupado(String quarto) {
         for (Internacao i : internacoes) {
             if (i.getQuarto().equalsIgnoreCase(quarto) && i.estaAtiva()) {
@@ -44,6 +53,7 @@ public class InternacaoRepo {
         } return false;
     }
 
+    // Lista internações ativas (internações sem data de saída)
     public List<Internacao> listarAtivas() {
         List<Internacao> ativas = new ArrayList<>();
         for (Internacao i : internacoes) {
@@ -51,6 +61,7 @@ public class InternacaoRepo {
         } return ativas;
     }
 
+    // Método para salvar dados em CSV (backup)
     private void salvar() {
         List<String[]> linhas = new ArrayList<>();
         for (Internacao i : internacoes) {
@@ -67,6 +78,7 @@ public class InternacaoRepo {
         CSV.write(Storage.INTERNACOES, linhas);
     }
 
+    // Carrega os dados do CSV para a lista de internações (inicialização)
     private void carregar() {
         internacoes.clear();
         for (String[] r : CSV.read(Storage.INTERNACOES)) {
@@ -82,6 +94,7 @@ public class InternacaoRepo {
         }
     }
 
+    // Método auxiliar para converter String em double com tratamento de erros
     private static double parse(String s) { 
         try { 
             return Double.parseDouble(s); 

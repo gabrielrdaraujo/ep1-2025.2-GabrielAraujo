@@ -1,12 +1,16 @@
 package model.medicos;
 
 public class Medico {
+    // Atributos
     private String id;
     private String nome;
     private String crm;
     private String especialidade;
     private double valorConsulta;
 
+    // Construtores
+
+    // Construtor com valorConsulta padrão 100.0
     public Medico(String id, String nome, String crm, String especialidade) {
         this.id = id;
         this.nome = nome;
@@ -15,6 +19,7 @@ public class Medico {
         this.valorConsulta = 100.0; 
     }
 
+    // Construtor completo
     public Medico(String id, String nome, String crm, String especialidade, double valorConsulta) {
         this.id = id;
         this.nome = nome;
@@ -23,6 +28,7 @@ public class Medico {
         this.valorConsulta = valorConsulta;
     }
 
+    // Getters e Setters
     public String getId() {
         return id;
     }
@@ -63,6 +69,7 @@ public class Medico {
         this.valorConsulta = valorConsulta;
     }
 
+    // Método toString 
     @Override
     public String toString() {
         return "Medico{" +

@@ -6,14 +6,19 @@ import java.util.Scanner;
 import model.consultas.Consulta;
 
 public class MenuConsultas {
+    // Atributos
     private final Scanner in;
     private final ConsultaController controller;
 
+    // Construtor
     public MenuConsultas(Scanner in, ConsultaController controller) {
         this.in = in;
         this.controller = controller;
     }
 
+    // Métodos
+
+    // Menu Consultas
     public void mostrar() {
         int op;
         do {
@@ -24,8 +29,8 @@ public class MenuConsultas {
             System.out.println("4) Cancelar");
             System.out.println("0) Voltar");
             System.out.print("Opção: ");
-            String line = in.nextLine().trim();
-            op = line.isEmpty() ? -1 : Character.getNumericValue(line.charAt(0));
+            String line = in.nextLine().trim(); // Evita erro se o usuário só apertar Enter
+            op = line.isEmpty() ? -1 : Character.getNumericValue(line.charAt(0)); // Pega o primeiro caractere
 
             try {
                 switch (op) {
@@ -36,7 +41,7 @@ public class MenuConsultas {
                     case 0 -> System.out.println("Voltando...");
                     default -> System.out.println("Opção inválida.");
                 }
-            } catch (IllegalArgumentException | IllegalStateException e) {
+            } catch (IllegalArgumentException | IllegalStateException e) { // Tratamento de erros
                 System.out.println("Erro: " + e.getMessage());
             } catch (Exception e) {
                 System.out.println("Erro inesperado: " + e.getMessage());
@@ -45,6 +50,7 @@ public class MenuConsultas {
         } while (op != 0);
     }
 
+    // Método para agendar consulta
     private void agendar() {
         System.out.print("ID do Paciente: ");
         String pacienteId = in.nextLine();
@@ -52,7 +58,7 @@ public class MenuConsultas {
         System.out.print("ID do Médico: ");
         String medicoId = in.nextLine();
 
-        System.out.print("Data e Hora (ex.: 2025-09-27 14:00): ");
+        System.out.print("Data e Hora (ex.: 2025-09-27 14:00): "); // Formato para compatibilidade futura
         String dataHora = in.nextLine();
 
         System.out.print("Local (ex.: Sala 101): ");
@@ -62,6 +68,7 @@ public class MenuConsultas {
         System.out.println("Consulta agendada: " + c);
     }
 
+    // Listar consultas
     private void listar() {
         List<Consulta> lista = controller.listarTodas();
         if (lista.isEmpty()) {
@@ -77,6 +84,7 @@ public class MenuConsultas {
         }
     }
 
+    // Concluir consulta
     private void concluir() {
         System.out.print("Consulta ID: "); 
         String id = in.nextLine().trim();
@@ -90,7 +98,8 @@ public class MenuConsultas {
         controller.concluir(id, diag, presc);
         System.out.println("Consulta concluída.");
     }
-
+    
+    // Cancelar consulta
     private void cancelar() {
         System.out.print("Consulta ID: "); 
         String id = in.nextLine().trim();
