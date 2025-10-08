@@ -1,6 +1,5 @@
 package infra;
 
-// Classe para gerar IDs únicos com prefixo
 public class IdSequence {
     private static int contador = 1;
 

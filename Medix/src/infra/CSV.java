@@ -21,7 +21,7 @@ public class CSV {
                 linhas.add(linha.split(";")); 
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Erro ao ler o arquivo CSV: " + e.getMessage());
         }
         return linhas;
     }
@@ -33,7 +33,7 @@ public class CSV {
                 bw.newLine();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Erro ao escrever no arquivo CSV: " + e.getMessage());
         }
     }
 }
