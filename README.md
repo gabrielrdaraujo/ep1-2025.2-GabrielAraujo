@@ -13,7 +13,7 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
 - **Nome completo:** [Gabriel Rodrigues de Araujo]
 - **Matrícula:** [251009210]
 - **Curso:** [Engenharias]
-- **Turma:** [02]
+- **Turma:** [02 (2025.2)]
 
 ---
 
@@ -38,7 +38,6 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
    │  └─ view/
    ├─ data/
    ├─ out/
-   
 
 3. **Versão do JAVA utilizada:**  
    [`java 17`]

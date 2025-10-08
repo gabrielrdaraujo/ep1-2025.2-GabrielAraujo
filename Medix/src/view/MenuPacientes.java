@@ -41,33 +41,31 @@ public class MenuPacientes {
         } while (op != 0);
     }
 
-    private void cadastrar() {
+        private void cadastrar() {
         System.out.print("Nome: ");
         String nome = in.nextLine();
 
-        System.out.print("CPF (somente números): ");
+        System.out.print("CPF: ");
         String cpf = in.nextLine();
 
         System.out.print("Idade: ");
         int idade = lerInt(in.nextLine());
 
-        System.out.print("Plano de saúde (ID) [Enter para nenhum]: ");
-        String planoId = in.nextLine().trim();
-        if (planoId.isEmpty()) planoId = null;
+        System.out.print("Plano de saúde ID (deixe vazio se não tiver): ");
+        String planoSaudeId = in.nextLine().trim();
+        if (planoSaudeId.isBlank()) planoSaudeId = null;
 
-        System.out.print("Paciente especial? (s/N): ");
-        String espStr = in.nextLine().trim().toLowerCase();
-        boolean especial = espStr.equals("s") || espStr.equals("sim");
+        System.out.print("Paciente especial? (S/N): ");
+        boolean especial = in.nextLine().trim().equalsIgnoreCase("S");
 
-        String observacao = null;
-
+        String observacao = "";
         if (especial) {
-            System.out.print("Observação do especial (ex.: prioridade/condição): ");
+            System.out.print("Observação (opcional): ");
             observacao = in.nextLine();
         }
 
-        Paciente p = controller.cadastrar(nome, cpf, idade, planoId, especial, observacao);
-        System.out.println("Paciente cadastrado: " + p);
+        Paciente p = controller.cadastrar(nome, cpf, idade, planoSaudeId, especial, observacao);
+        System.out.println("Paciente cadastrado: " + p.getId());
     }
 
     private void listar() {

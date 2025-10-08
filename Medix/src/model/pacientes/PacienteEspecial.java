@@ -6,7 +6,7 @@ public class PacienteEspecial extends Paciente {
 
     // Construtor que chama o construtor da superclasse e inicializa observacao
     public PacienteEspecial(String id, String nome, String cpf, int idade, String planoSaude, String observacao) {
-        super(id, nome, cpf, idade);
+        super(id, nome, cpf, idade, planoSaude, true);
         this.observacao = observacao;
     }
 
