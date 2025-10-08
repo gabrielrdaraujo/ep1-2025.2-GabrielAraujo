@@ -1,5 +1,2 @@
-P1;Anderson;12345678910;20;;E;prioridade
-P2;Monica;12345678911;30;PS2;N;
-P3;Gabriel;12345678912;35;;E;baixa renda
-P4;Noemi;12345678913;60;;E;idoso
-P5;Aline;12345678914;22;;E;PCD
+P2;Monica;12345678911;30;PS2;E;prioridade
+P1;Gabriel;12345678912;20;PS3;E;baixa renda
