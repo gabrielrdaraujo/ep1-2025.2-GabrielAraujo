@@ -82,6 +82,7 @@ public class MenuInternacoes {
             System.out.println("(nenhuma internação ativa)");
             return;
         }
+
         System.out.println("ID | PACIENTE | MEDICO | QUARTO | ENTRADA | SAIDA");
         for (Internacao i : lista) {
             System.out.printf("%s | %s | %s | %s | %s | %s%n",
@@ -96,6 +97,7 @@ public class MenuInternacoes {
             System.out.println("(nenhuma internação cadastrada)");
             return;
         }
+        
         System.out.println("ID | PACIENTE | MEDICO | QUARTO | ENTRADA | SAIDA");
         for (Internacao i : lista) {
             System.out.printf("%s | %s | %s | %s | %s | %s%n",

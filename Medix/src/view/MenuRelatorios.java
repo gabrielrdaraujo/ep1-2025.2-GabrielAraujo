@@ -87,8 +87,14 @@ public class MenuRelatorios {
         String de = in.nextLine().trim();
         System.out.print("Data/Hora final   (yyyy-MM-dd HH:mm): ");
         String ate = in.nextLine().trim();
-        if (de.isEmpty() || ate.isEmpty()) throw new IllegalArgumentException("Período inválido.");
-        if (de.compareTo(ate) > 0) throw new IllegalArgumentException("Data inicial > data final.");
+        if (de.isEmpty() || ate.isEmpty()) {
+            throw new IllegalArgumentException("Período inválido.");
+        }
+
+        if (de.compareTo(ate) > 0) {
+            throw new IllegalArgumentException("Data inicial > data final.");
+        }
+        
         return new String[]{de, ate};
     }
 }

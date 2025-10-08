@@ -13,13 +13,23 @@ public class MedicoController {
     }
 
     public Medico cadastrar(String nome, String crm, String especialidade, double valorConsulta) {
-        if (nome == null || nome.isBlank()) throw new IllegalArgumentException("Nome não pode ser vazio.");
-        if (crm == null || crm.isBlank()) throw new IllegalArgumentException("CRM não pode ser vazio.");
-        if (especialidade == null || especialidade.isBlank()) throw new IllegalArgumentException("Especialidade não pode ser vazia.");
-        if (valorConsulta < 0) throw new IllegalArgumentException("Valor da consulta não pode ser negativo.");
+        if (nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException("Nome não pode ser vazio.");
+        }
+
+        if (crm == null || crm.isBlank()) {
+            throw new IllegalArgumentException("CRM não pode ser vazio.");
+        }
+
+        if (especialidade == null || especialidade.isBlank()) {
+            throw new IllegalArgumentException("Especialidade não pode ser vazia.");
+        }
+
+        if (valorConsulta < 0) {
+            throw new IllegalArgumentException("Valor da consulta não pode ser negativo.");
+        }
 
         String id = IdSequence.nextId("M");
-
         Medico m = new Medico(id, nome.trim(), crm.trim(), especialidade.trim(), valorConsulta);
         repo.add(m);
         return m;

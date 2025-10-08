@@ -23,15 +23,15 @@ public class ConsultaController {
             throw new IllegalArgumentException("Paciente inválido.");
         }
 
-        if (medicoId   == null || medicoId.isBlank()) {
+        if (medicoId == null || medicoId.isBlank()) {
             throw new IllegalArgumentException("Médico inválido.");
         }
         
-        if (dataHora   == null || dataHora.isBlank()) {
+        if (dataHora == null || dataHora.isBlank()) {
             throw new IllegalArgumentException("Data/Hora inválida.");
         }
 
-        if (local      == null || local.isBlank()) {
+        if (local == null || local.isBlank()) {
             throw new IllegalArgumentException("Local inválido.");
         }
 
@@ -52,7 +52,8 @@ public class ConsultaController {
         }
 
         String id = IdSequence.nextId("C");
-        Consulta c = new Consulta(id, pacienteId, medicoId, dataHora.trim(), local.trim(), "AGENDADA", "", "");
+        Consulta c = new Consulta(id, pacienteId, medicoId, dataHora.trim(), local.trim(), 
+        "AGENDADA", "", "");
         consultaRepo.add(c);
         return c;
     }

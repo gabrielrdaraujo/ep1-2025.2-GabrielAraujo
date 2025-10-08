@@ -35,8 +35,9 @@ public class MedicoRepo {
 
     public boolean remove(String id) {
         boolean removed = medicos.removeIf(m -> m.getId().equals(id));
-        if (removed) salvar();
-        return removed;
+        if (removed) {
+            salvar();
+        } return removed;
     }
 
     private void salvar() {

@@ -4,13 +4,14 @@ public class Consulta {
     private final String id;
     private final String pacienteId;
     private final String medicoId;
-    private final String dataHora; 
-    private final String local;    
+    private String dataHora; 
+    private String local;    
     private String status;   
     private String diagnostico;
     private String prescricao;
 
-    public Consulta(String id, String pacienteId, String medicoId, String dataHora, String local, String status, String diagnostico, String prescricao) {
+    public Consulta(String id, String pacienteId, String medicoId, String dataHora, String local, String status, 
+    String diagnostico, String prescricao) {
         this.id = id;
         this.pacienteId = pacienteId;
         this.medicoId = medicoId;
@@ -37,8 +38,16 @@ public class Consulta {
         return dataHora; 
     }
 
+    public void setDataHora(String dataHora) { 
+        this.dataHora = dataHora; 
+    }
+
     public String getLocal() { 
         return local; 
+    }
+
+    public void setLocal(String local) { 
+        this.local = local; 
     }
 
     public String getStatus() { 

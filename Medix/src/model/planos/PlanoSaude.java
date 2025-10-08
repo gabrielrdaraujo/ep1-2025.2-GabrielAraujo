@@ -1,7 +1,7 @@
 package model.planos;
 
 public class PlanoSaude {
-    private String id;
+    private final String id;
     private String nome;
     private double descontoConsulta;
     private double descontoInternacao;
@@ -29,10 +29,6 @@ public class PlanoSaude {
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getNome() {

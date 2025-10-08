@@ -1,6 +1,5 @@
 package controller;
 
-import infra.IdSequence;
 import java.util.List;
 import model.pacientes.Paciente;
 import model.pacientes.PacienteRepo;
@@ -12,13 +11,15 @@ public class PacienteController {
         this.repo = repo;
     }
 
-    public Paciente cadastrar(String nome, String cpf, int idade, String planoId, boolean especial, String observacao) {
+    public Paciente cadastrar(String nome, String cpf, int idade, String planoSaudeId, boolean especial, String observacao) {
         if (nome == null || nome.isBlank()) {
             throw new IllegalArgumentException("Nome não pode ser vazio.");
         }
+
         if (cpf == null || cpf.isBlank()) {
             throw new IllegalArgumentException("CPF não pode ser vazio.");
         }
+        
         if (idade < 0 || idade > 120) {
             throw new IllegalArgumentException("Idade inválida.");
         }
@@ -27,29 +28,12 @@ public class PacienteController {
 
         model.pacientes.Paciente p;
         if (especial) {
-            p = new model.pacientes.PacienteEspecial(id, nome.trim(), cpf.trim(), idade, planoId, 
+            p = new model.pacientes.PacienteEspecial(id, nome.trim(), cpf.trim(), idade, planoSaudeId, 
             observacao == null ? "" : observacao.trim());
         } else {
-            p = new model.pacientes.Paciente(id, nome.trim(), cpf.trim(), idade, planoId, false);
+            p = new model.pacientes.Paciente(id, nome.trim(), cpf.trim(), idade, planoSaudeId, false);
         }
 
-        repo.add(p);
-        return p;
-    }
-
-    public Paciente cadastrar(String nome, String cpf, int idade, String planoSaudeId, boolean especial) {
-        if (nome == null || nome.isBlank()) {
-            throw new IllegalArgumentException("Nome não pode ser vazio.");
-        }
-        if (cpf == null || cpf.isBlank()) {
-            throw new IllegalArgumentException("CPF não pode ser vazio.");
-        }
-        if (idade < 0 || idade > 120) {
-            throw new IllegalArgumentException("Idade inválida.");
-        }
-
-        String id = IdSequence.nextId("P");
-        Paciente p = new Paciente(id, nome.trim(), cpf.trim(), idade, planoSaudeId, especial);
         repo.add(p);
         return p;
     }

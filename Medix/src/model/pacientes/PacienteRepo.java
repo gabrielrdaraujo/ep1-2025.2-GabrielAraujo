@@ -24,29 +24,29 @@ public class PacienteRepo {
     public Paciente findById(String id) {
         for (Paciente p : pacientes) {
             if (p.getId().equals(id)) return p;
-        }
-        return null;
+        } return null;
     }
 
     public boolean remove(String id) {
         boolean removed = pacientes.removeIf(p -> p.getId().equals(id));
         if (removed) {
             salvar();
-        }
-        return removed; 
+        } return removed; 
     }
 
     private void salvar() {
         List<String[]> linhas = new ArrayList<>();
         for (Paciente p : pacientes) {
-            String tipo = (p instanceof PacienteEspecial || p.isEspecial()) ? "E" : "N";
-            String obs = (p instanceof PacienteEspecial pe) ? pe.getObservacao() : "";
-            String planoId = p.getPlanoSaudeId() == null ? "" : p.getPlanoSaudeId();
+            if (p != null) {
+                String tipo = (p instanceof PacienteEspecial || p.isEspecial()) ? "E" : "N";
+                String obs = (p instanceof PacienteEspecial pe) ? pe.getObservacao() : "";
+                String planoId = (p.getPlanoSaudeId() != null) ? p.getPlanoSaudeId() : "";
 
-            linhas.add(new String[]{
-                    p.getId(), p.getNome(), p.getCpf(), String.valueOf(p.getIdade()),
-                    planoId, tipo, obs
-            });
+                linhas.add(new String[]{
+                        p.getId(), p.getNome(), p.getCpf(), String.valueOf(p.getIdade()),
+                        planoId, tipo, obs
+                });
+            }
         }
         CSV.write(Storage.PACIENTES, linhas);
     }
@@ -71,7 +71,7 @@ public class PacienteRepo {
                 } else if (c.length == 4) {
                     pacientes.add(new Paciente(c[0], c[1], c[2], Integer.parseInt(c[3])));
                 }
-            } catch (Exception ignored) {}
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException ignored) {}
         }
     }
 }

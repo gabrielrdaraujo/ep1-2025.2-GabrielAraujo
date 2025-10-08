@@ -1,11 +1,11 @@
 package model.pacientes;
 
 public class Paciente {
-    private String id;
+    private final String id;
     private String nome;
     private String cpf;
     private int idade;
-    private String planoSaudeId; 
+    private final String planoSaudeId; 
     private boolean especial;
     
     public Paciente(String id, String nome, String cpf, int idade) {
@@ -28,10 +28,6 @@ public class Paciente {
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -60,10 +56,6 @@ public class Paciente {
 
     public String getPlanoSaudeId() {
         return planoSaudeId;
-    }
-
-    public void setPlanoSaudeId(String planoSaudeId) {
-        this.planoSaudeId = planoSaudeId;
     }
 
     public boolean isEspecial() {

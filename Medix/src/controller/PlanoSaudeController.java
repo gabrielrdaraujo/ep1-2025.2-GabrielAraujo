@@ -1,10 +1,9 @@
 package controller;
 
 import infra.IdSequence;
+import java.util.List;
 import model.planos.PlanoSaude;
 import model.planos.PlanoSaudeRepo;
-
-import java.util.List;
 
 public class PlanoSaudeController {
     private final PlanoSaudeRepo repo;

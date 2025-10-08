@@ -68,7 +68,10 @@ public class PlanoSaudeRepo {
         }
     }
     private static boolean parseBool(String s){
-        if (s == null) return false;
+        if (s == null) {
+            return false;
+        }
+        
         s = s.trim().toLowerCase();
         return s.equals("true") || s.equals("1") || s.equals("sim") || s.equals("y");
     }

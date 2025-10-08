@@ -68,7 +68,7 @@ public class ConsultaRepo {
 
     public boolean existeConflitoMedicoHorario(String medicoId, String dataHora) {
         for (Consulta c : consultas) {
-            if ("AGENDADA".equals(c.getStatus())
+            if ("AGENDADA".equals(c.getStatus()) 
                     && c.getMedicoId().equals(medicoId)
                     && c.getDataHora().equals(dataHora)) {
                 return true;

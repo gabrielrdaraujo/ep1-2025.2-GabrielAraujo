@@ -6,27 +6,39 @@ Implementar um *Sistema de Gerenciamento Hospitalar* em *Java, aplicando conceit
 ---
 ## Descrição do Projeto
 
-Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceitos de orientação a objetos (herança, polimorfismo e encapsulamento) e persistência de dados em arquivos.
+Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceitos de orientação a objetos (herança, polimorfismo e encapsulamento) e persistência de dados em arquivos CSV.
 
 ## Dados do Aluno
 
 - **Nome completo:** [Gabriel Rodrigues de Araujo]
 - **Matrícula:** [251009210]
 - **Curso:** [Engenharias]
-- **Turma:** [02]
+- **Turma:** [06]
 
 ---
 
 ## Instruções para Compilação e Execução
 
 1. **Compilação:**  
-   [Descrever aqui como compilar o projeto. Exemplo: `javac Main.java` ou o script usado]
+   [O usuário deve navegar dentro do terminal até a pasta do arquivo App.java e executar o comando `javac App.java` para **compilar** o projeto]
 
 2. **Execução:**  
-   [Descrever aqui como executar o projeto. Exemplo: `java Main` ou o script usado]
+   [O usuário deve em seguida executar o comando `java App` no terminal para **executar** o projeto]
 
 3. **Estrutura de Pastas:**  
-   [Descrever aqui as principais pastas do projeto]
+   ├─ src/
+   │  ├─ controller/
+   │  ├─ infra/
+   │  ├─ model/
+   │  │  ├─ consultas/
+   │  │  ├─ internacoes/
+   │  │  ├─ medicos/
+   │  │  ├─ pacientes/
+   │  │  └─ planos/
+   │  └─ view/
+   ├─ data/
+   ├─ out/
+   
 
 3. **Versão do JAVA utilizada:**  
    [`java 17`]
@@ -52,11 +64,9 @@ Desenvolvimento de um sistema de gerenciamento hospitalar utilizando os conceito
 
 ---
 
----
-
 ## Observações (Extras ou Dificuldades)
 
-- [Espaço para o aluno comentar qualquer funcionalidade extra que implementou, dificuldades enfrentadas, ou considerações importantes.]
+- [O trabalho foi feito com a arquitetura MVC/infra simples e direta. Algumas da dificuldades enfrentadas ao longo da execução do projeto foram o entendimento/aplicação da complexidade da persistência de dados CSV, de algumas funcionalidades ─ como a de leitura e comparação de datas ─ além do tratamento de erros. Como pontos extras, cabe citar os planos de saúde com descontos (para idosos 60+ há desconto especial), as internações possuem a funcionalidade de informar o custo diário e são gratuitas para períodos menores que que 7 dias. Além disso, há alguns relatórios extras aos do enunciado.]
 
 ---
 

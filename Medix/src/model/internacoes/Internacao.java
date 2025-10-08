@@ -9,8 +9,8 @@ public class Internacao {
     private final String id;
     private final String pacienteId;
     private final String medicoId;
-    private final String quarto;
-    private final String dataEntrada;
+    private String quarto;
+    private String dataEntrada;
     private String dataSaida;
     private double custoDia;
 
@@ -54,8 +54,16 @@ public class Internacao {
         return quarto;
     }
 
+    public void setQuarto(String quarto) {
+        this.quarto = quarto;
+    }
+
     public String getDataEntrada() {
         return dataEntrada;
+    }
+
+    public void setDataEntrada(String dataEntrada) {
+        this.dataEntrada = dataEntrada;
     }
 
     public String getDataSaida() {

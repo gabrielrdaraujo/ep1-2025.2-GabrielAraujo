@@ -7,11 +7,11 @@ import model.medicos.Medico;
 
 public class MenuMedicos {
     private final Scanner in;
-    private final MedicoController ctrl;
+    private final MedicoController controller;
 
-    public MenuMedicos(Scanner in, MedicoController ctrl) {
+    public MenuMedicos(Scanner in, MedicoController controller) {
         this.in = in;
-        this.ctrl = ctrl;
+        this.controller = controller;
     }
 
     public void mostrar() {
@@ -54,12 +54,12 @@ public class MenuMedicos {
         System.out.print("Valor da consulta (R$): ");
         double valor = lerDouble(in.nextLine());
 
-        Medico m = ctrl.cadastrar(nome, crm, esp, valor);
+        Medico m = controller.cadastrar(nome, crm, esp, valor);
         System.out.println("Médico cadastrado: " + m);
     }
 
     private void listar() {
-        List<Medico> medicos = ctrl.listarTodos();
+        List<Medico> medicos = controller.listarTodos();
         if (medicos.isEmpty()) {
             System.out.println("Nenhum médico cadastrado.");
             return;
@@ -70,7 +70,7 @@ public class MenuMedicos {
     private void remover() {
         System.out.print("ID do médico: ");
         String id = in.nextLine();
-        boolean ok = ctrl.removerPorId(id);
+        boolean ok = controller.removerPorId(id);
         System.out.println(ok ? "Removido." : "ID não encontrado.");
     }
 

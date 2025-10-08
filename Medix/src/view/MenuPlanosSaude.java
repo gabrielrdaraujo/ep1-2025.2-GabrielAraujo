@@ -7,11 +7,11 @@ import model.planos.PlanoSaude;
 
 public class MenuPlanosSaude {
     private final Scanner in;
-    private final PlanoSaudeController ctrl;
+    private final PlanoSaudeController controller;
 
-    public MenuPlanosSaude(Scanner in, PlanoSaudeController ctrl) {
+    public MenuPlanosSaude(Scanner in, PlanoSaudeController controller) {
         this.in = in;
-        this.ctrl = ctrl;
+        this.controller = controller;
     }
 
     public void mostrar() {
@@ -49,12 +49,12 @@ public class MenuPlanosSaude {
         System.out.print("Desconto em internações (%) [ex.: 10]: ");
         double dIntern = lerDouble(in.nextLine());
 
-        PlanoSaude p = ctrl.cadastrar(nome, dConsulta, dIntern);
+        PlanoSaude p = controller.cadastrar(nome, dConsulta, dIntern);
         System.out.println("Plano cadastrado: " + p);
     }
 
     private void listar() {
-        List<PlanoSaude> planos = ctrl.listar();
+        List<PlanoSaude> planos = controller.listar();
         if (planos.isEmpty()) {
             System.out.println("Nenhum plano cadastrado.");
             return;

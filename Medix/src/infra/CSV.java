@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CSV {
-
     public static List<String[]> read(String filePath) {
         List<String[]> linhas = new ArrayList<>();
         Path path = Paths.get(filePath);

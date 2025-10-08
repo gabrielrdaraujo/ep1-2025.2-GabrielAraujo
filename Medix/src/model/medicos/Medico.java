@@ -8,7 +8,11 @@ public class Medico {
     private double valorConsulta;
 
     public Medico(String id, String nome, String crm, String especialidade) {
-        this(id, nome, crm, especialidade, 0.0);
+        this.id = id;
+        this.nome = nome;
+        this.crm = crm;
+        this.especialidade = especialidade;
+        this.valorConsulta = 100.0; 
     }
 
     public Medico(String id, String nome, String crm, String especialidade, double valorConsulta) {

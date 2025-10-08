@@ -8,18 +8,18 @@ import view.MenuPrincipal;
 
 public class App {
     public static void main(String[] args) {
-        PacienteRepo   pacienteRepo   = new PacienteRepo();
-        MedicoRepo     medicoRepo     = new MedicoRepo();
-        ConsultaRepo   consultaRepo   = new ConsultaRepo();
+        PacienteRepo pacienteRepo = new PacienteRepo();
+        MedicoRepo medicoRepo = new MedicoRepo();
+        ConsultaRepo consultaRepo = new ConsultaRepo();
         InternacaoRepo internacaoRepo = new InternacaoRepo();
-        PlanoSaudeRepo planoRepo      = new PlanoSaudeRepo();
+        PlanoSaudeRepo planoRepo = new PlanoSaudeRepo();
 
-        PacienteController   pacienteController   = new PacienteController(pacienteRepo);
-        MedicoController     medicoController     = new MedicoController(medicoRepo);
-        ConsultaController   consultaController   = new ConsultaController(consultaRepo, pacienteRepo, medicoRepo);
+        PacienteController pacienteController = new PacienteController(pacienteRepo);
+        MedicoController medicoController = new MedicoController(medicoRepo);
+        ConsultaController consultaController = new ConsultaController(consultaRepo, pacienteRepo, medicoRepo);
         InternacaoController internacaoController = new InternacaoController(internacaoRepo, pacienteRepo, medicoRepo);
-        PlanoSaudeController planoController      = new PlanoSaudeController(planoRepo);
-        RelatorioController  relatorioController  = new RelatorioController(consultaRepo, pacienteRepo, medicoRepo, planoRepo, internacaoRepo);
+        PlanoSaudeController planoController = new PlanoSaudeController(planoRepo);
+        RelatorioController relatorioController  = new RelatorioController(consultaRepo, pacienteRepo, medicoRepo, planoRepo, internacaoRepo);
 
         new MenuPrincipal(pacienteController, medicoController, consultaController,
                           internacaoController, planoController, relatorioController).mostrar();

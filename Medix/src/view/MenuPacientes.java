@@ -7,11 +7,11 @@ import model.pacientes.Paciente;
 
 public class MenuPacientes {
     private final Scanner in;
-    private final PacienteController ctrl;
+    private final PacienteController controller;
 
-    public MenuPacientes(Scanner in, PacienteController ctrl) {
+    public MenuPacientes(Scanner in, PacienteController controller) {
         this.in = in;
-        this.ctrl = ctrl;
+        this.controller = controller;
     }
 
     public void mostrar() {
@@ -59,17 +59,19 @@ public class MenuPacientes {
         String espStr = in.nextLine().trim().toLowerCase();
         boolean especial = espStr.equals("s") || espStr.equals("sim");
 
+        String observacao = null;
+
         if (especial) {
             System.out.print("Observação do especial (ex.: prioridade/condição): ");
-            in.nextLine();
+            observacao = in.nextLine();
         }
 
-        Paciente p = ctrl.cadastrar(nome, cpf, idade, planoId, especial);
+        Paciente p = controller.cadastrar(nome, cpf, idade, planoId, especial, observacao);
         System.out.println("Paciente cadastrado: " + p);
     }
 
     private void listar() {
-        List<Paciente> pacientes = ctrl.listarTodos();
+        List<Paciente> pacientes = controller.listarTodos();
         if (pacientes.isEmpty()) {
             System.out.println("Nenhum paciente cadastrado.");
             return;
@@ -80,7 +82,7 @@ public class MenuPacientes {
     private void remover() {
         System.out.print("ID do paciente: ");
         String id = in.nextLine();
-        boolean ok = ctrl.removerPorId(id);
+        boolean ok = controller.removerPorId(id);
         System.out.println(ok ? "Removido." : "ID não encontrado.");
     }
 

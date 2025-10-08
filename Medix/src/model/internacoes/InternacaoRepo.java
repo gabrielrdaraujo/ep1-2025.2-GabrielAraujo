@@ -41,16 +41,14 @@ public class InternacaoRepo {
             if (i.getQuarto().equalsIgnoreCase(quarto) && i.estaAtiva()) {
                 return true;
             }
-        }
-        return false;
+        } return false;
     }
 
     public List<Internacao> listarAtivas() {
         List<Internacao> ativas = new ArrayList<>();
         for (Internacao i : internacoes) {
             if (i.estaAtiva()) ativas.add(i);
-        }
-        return ativas;
+        } return ativas;
     }
 
     private void salvar() {
